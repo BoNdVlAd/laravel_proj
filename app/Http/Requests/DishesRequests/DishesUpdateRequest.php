@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\DishesUpdateRequest;
+namespace App\Http\Requests\DishesRequests;
 
 use App\Http\Requests\BaseRequest;
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DishesController;
@@ -52,6 +53,17 @@ Route::prefix('dishes')->group(function() {
     Route::delete('/delete/{dishes}', [DishesController::class, 'deleteDish']);
 
     Route::post('/addDishToOrder/{order}', [DishesController::class, 'addDishToOrder']);
+});
+
+/**
+ * Media`s routes
+ */
+Route::prefix('media')->group(function() {
+    Route::get('', [MediaController::class, 'getMedia']);
+    Route::get('/{media}', [MediaController::class, 'getMediaById']);
+    Route::post('', [MediaController::class, 'createMedia']);
+    Route::patch('/update/{media}', [MediaController::class, 'updateMedia']);
+    Route::delete('/delete/{media}', [MediaController::class, 'deleteMedia']);
 });
 
 /**

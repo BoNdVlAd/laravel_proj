@@ -46,5 +46,13 @@ class UserSeeder extends Seeder
             'url' => 'http://example.com/photo.jpg',
         ]);
 
+        $gallery->media()->create([
+            'filename' => 'photo123.jpg',
+            'mime_type' => 'image123/jpeg',
+            'size' => 300,
+            'url' => 'http://example.com/photo123.jpg',
+        ]);
+
+
     }
 }

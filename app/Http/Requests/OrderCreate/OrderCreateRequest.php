@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\OrderCreateRequest;
+namespace App\Http\Requests\OrderCreate;
 
 use App\Http\Requests\BaseRequest;
 

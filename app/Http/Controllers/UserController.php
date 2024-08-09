@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserCreateRequest\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest\UserUpdateRequest;
+
+use App\Http\Requests\UserRequests\UserCreateRequest;
+use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
