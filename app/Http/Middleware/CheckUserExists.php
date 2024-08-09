@@ -10,7 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckUserExists
 {
-    public function handle($request, Closure $next)
+    /**
+     * @param $request
+     * @param Closure $next
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
+    public function handle($request, Closure $next): mixed
     {
         $user = $request->route('user');
         if (!$user) {

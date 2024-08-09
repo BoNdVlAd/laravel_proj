@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\UserRequests;
+namespace App\Http\Requests\UserCreateRequest;
 
 use App\Http\Requests\BaseRequest;
 
-class UserCreate extends BaseRequest
+class UserCreateRequest extends BaseRequest
 {
     /**
      * @return string[]

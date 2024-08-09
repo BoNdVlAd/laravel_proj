@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -63,6 +64,34 @@ class UserService
     public function deleteUser($user): string
     {
         $user->delete();
+
         return 'User has been deleted';
+    }
+
+    /**
+     * @param $role
+     * @return string
+     */
+    public function checkRole($role): string
+    {
+        $user = auth()->user();
+        if($user->hasRole($role)) {
+            return 'true';
+        }
+        return 'false';
+    }
+
+
+    /**
+     * @param $role
+     * @return string
+     */
+    public function editRole($role): string
+    {
+        $user = auth()->user();
+        $user->roles()->detach();
+        $user->roles()->attach(Role::where('slug',$role)->first());
+
+        return 'Role has been changed';
     }
 }

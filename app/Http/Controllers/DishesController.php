@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DishesRequests\DishesCreate;
-use App\Http\Requests\DishesRequests\DishesUpdate;
+use App\Http\Requests\DishesCreateRequest\DishesCreateRequest;
+use App\Http\Requests\DishesUpdateRequest\DishesUpdateRequest;
 use App\Models\Dishes;
+use App\Models\Order;
 use App\Services\DishesService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +40,10 @@ class DishesController extends Controller
     }
 
     /**
-     * @param DishesCreate $dishesCreateRequest
+     * @param DishesCreateRequest $dishesCreateRequest
      * @return JsonResponse
      */
-    public function createDish(DishesCreate $dishesCreateRequest): JsonResponse
+    public function createDish(DishesCreateRequest $dishesCreateRequest): JsonResponse
     {
         $data = $dishesCreateRequest->getContent();
         $content = json_decode($data, true);
@@ -54,10 +55,10 @@ class DishesController extends Controller
 
     /**
      * @param Dishes $dishes
-     * @param DishesUpdate $dishesUpdateRequest
+     * @param DishesUpdateRequest $dishesUpdateRequest
      * @return JsonResponse
      */
-    public function updateDish(Dishes $dishes, DishesUpdate $dishesUpdateRequest): JsonResponse
+    public function updateDish(Dishes $dishes, DishesUpdateRequest $dishesUpdateRequest): JsonResponse
     {
         $data = $dishesUpdateRequest->getContent();
         $content = json_decode($data, true);
@@ -77,5 +78,20 @@ class DishesController extends Controller
         $response = $this->dishesService->deleteDishes($dish);
 
         return new JsonResponse(['message' => $response], Response::HTTP_OK);
+    }
+
+    /**
+     * @param DishesCreateRequest $dishesCreateRequest
+     * @param Order $order
+     * @return JsonResponse
+     */
+    public function addDishToOrder(DishesCreateRequest $dishesCreateRequest, Order $order): JsonResponse
+    {
+        $data = $dishesCreateRequest->getContent();
+        $content = json_decode($data, true);
+
+        $dish = $this->dishesService->addDishToOrder($content, $order);
+
+        return new JsonResponse($dish, Response::HTTP_OK);
     }
 }

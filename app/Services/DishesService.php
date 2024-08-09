@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\Dishes;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 
 class DishesService
 {
@@ -64,5 +66,22 @@ class DishesService
     {
         $dish->delete();
         return 'Dish was removed';
+    }
+
+    /**
+     * @param $data
+     * @param $order
+     * @return Dishes|null
+     */
+    public function addDishToOrder($data, $order): ?Dishes
+    {
+        $dish = new Dishes;
+        $dish->title = $data['title'] ?? null;
+        $dish->description = $data['description'] ?? null;
+        $dish->price = $data['price'] ?? null;
+        $order->dishes()->save($dish);
+        $order->calculateTotalPrice();
+
+        return $dish;
     }
 }

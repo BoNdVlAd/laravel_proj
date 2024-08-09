@@ -17,8 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory(5)->create();
-        Order::factory(10)->create();
-        Dishes::factory(20)->create();
+//        User::factory(5)->create();
+//        Order::factory(10)->create();
+//        Dishes::factory(20)->create();
+        $this->call(RoleSeeder::class);
+        $this->call(PermissionSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(DishesSeeder::class);
     }
 }

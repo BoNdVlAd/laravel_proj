@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\DishesRequests;
+namespace App\Http\Requests\DishesCreateRequest;
 
 use App\Http\Requests\BaseRequest;
 
-class DishesUpdate extends BaseRequest
+class DishesCreateRequest extends BaseRequest
 {
     /**
      * @return string[]
@@ -21,7 +21,7 @@ class DishesUpdate extends BaseRequest
     /**
      * @return string[]
      */
-    public function messages() : array
+    public function messages(): array
     {
         return [
             'name.required' => 'The name field is required.',

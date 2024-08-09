@@ -3,24 +3,20 @@
 namespace App\Models;
 
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\traits\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRolesAndPermissions;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * @var string[]
      */
     protected $fillable = [
         'name',
@@ -29,9 +25,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * @var string[]
      */
     protected $hidden = [
         'password',
@@ -39,12 +33,8 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-
-
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * @return string[]
      */
     protected function casts(): array
     {
@@ -63,27 +53,27 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Order::class);
     }
 
-    public function roles(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => RoleType::from($value)->name,
-        );
-    }
-
-    public function getJWTIdentifier()
+    /**
+     * @return mixed
+     */
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
 
     /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
     }
 
-
+    /**
+     * @return MorphOne
+     */
+    public function gallery(): MorphOne
+    {
+        return $this->morphOne(Gallery::class, 'galleryable');
+    }
 }

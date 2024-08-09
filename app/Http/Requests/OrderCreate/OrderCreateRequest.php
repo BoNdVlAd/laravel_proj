@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\OrderCreateRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseRequest;
 
-class ProfileUpdateRequest extends FormRequest
+class OrderCreateRequest extends BaseRequest
 {
     /**
      * @return string[]
@@ -12,12 +12,16 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8',
+            'payment_method' => 'required|max:255',
+            'total_price' => 'required|integer',
+//            'user_id' => 'required|integer',
         ];
     }
-    public function messages()
+
+    /**
+     * @return string[]
+     */
+    public function messages(): array
     {
         return [
             'name.required' => 'The name field is required.',
@@ -29,7 +33,7 @@ class ProfileUpdateRequest extends FormRequest
             'password.required' => 'The password field is required.',
             'password.string' => 'The password field must be a string.',
             'password.min' => 'The password must be at least 8 characters long.',
-            'password.confirmed' => 'The password confirmation does not match.',
         ];
     }
 }
+

@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserRoleMiddleware
+class ManagerRoleMiddleware
 {
     /**
      * @param Request $request
@@ -16,8 +16,8 @@ class UserRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->role) {
-            return new JsonResponse('User is nor authorized.', 403);
+        if (!auth()->check() || !auth()->user()->hasRole('manager')) {
+            return new JsonResponse(['message' => 'You are not a manager'], 403);
         }
         return $next($request);
     }

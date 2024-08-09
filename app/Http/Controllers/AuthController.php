@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
     /**
-     * Create a new AuthController instance.
-     *
-     * @return void
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -19,63 +16,52 @@ class AuthController extends Controller
     }
 
     /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function login()
+    public function login(): JsonResponse
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!$token = auth()->attempt($credentials)) {
+            return new JsonResponse(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
     }
 
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function me()
+    public function me(): JsonResponse
     {
-        return response()->json(auth()->user());
+        return new JsonResponse(auth()->user());
     }
 
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return new JsonResponse(['message' => 'Successfully logged out']);
     }
 
     /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         return $this->respondWithToken(auth()->refresh());
     }
 
     /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param $token
+     * @return JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token): JsonResponse
     {
-        return response()->json([
+        return new JsonResponse([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60

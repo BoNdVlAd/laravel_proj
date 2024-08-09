@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
+            $table->string('title')->unique()->nullable();
             $table->string('description')->nullable();
             $table->integer('price')->nullable();
             $table->jsonb("ingredients")->nullable();

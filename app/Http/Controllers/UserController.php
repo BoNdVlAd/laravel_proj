@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequests\UserCreate;
-use App\Http\Requests\UserRequests\UserUpdate;
+use App\Http\Requests\UserCreateRequest\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest\UserUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,10 +39,10 @@ class UserController extends Controller
     }
 
     /**
-     * @param UserCreate $userCreateRequest
+     * @param UserCreateRequest $userCreateRequest
      * @return JsonResponse
      */
-    public function createUser(UserCreate $userCreateRequest): JsonResponse
+    public function createUser(UserCreateRequest $userCreateRequest): JsonResponse
     {
         $data = $userCreateRequest->getContent();
         $content = json_decode($data, true);
@@ -54,10 +54,10 @@ class UserController extends Controller
 
     /**
      * @param User $user
-     * @param UserUpdate $userUpdateRequest
+     * @param UserUpdateRequest $userUpdateRequest
      * @return JsonResponse
      */
-    public function updateUser(User $user, UserUpdate $userUpdateRequest): JsonResponse
+    public function updateUser(User $user, UserUpdateRequest $userUpdateRequest): JsonResponse
     {
         $data = $userUpdateRequest->getContent();
         $content = json_decode($data, true);
@@ -71,11 +71,80 @@ class UserController extends Controller
      * @param User $user
      * @return JsonResponse
      */
-    public function deleteUser(User $user)
+    public function deleteUser(User $user): JsonResponse
     {
         $response = $this->userService->deleteUser($user);
 
         return new JsonResponse(['message' => $response], Response::HTTP_OK);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function checkManager(): JsonResponse
+    {
+        return new JsonResponse(['role is Manager'=>$this->userService->checkRole('manager')], 400);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function checkCustomer(): JsonResponse
+    {
+        return new JsonResponse(['role is Customer'=>$this->userService->checkRole('customer')], 400);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function checkChef(): JsonResponse
+    {
+        return new JsonResponse(['role is Chef'=>$this->userService->checkRole('chef')], 400);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function checkWaiter(): JsonResponse
+    {
+        return new JsonResponse(['role is Waiter'=>$this->userService->checkRole('waiter')], 400);
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function editRoleToManager(): JsonResponse
+    {
+        return new JsonResponse(['message'=>$this->userService->editRole('manager')], 400);
+
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function editRoleToCustomer(): JsonResponse
+    {
+        return new JsonResponse(['message'=>$this->userService->editRole('customer')], 400);
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function editRoleToWaiter(): JsonResponse
+    {
+        return new JsonResponse(['message'=>$this->userService->editRole('waiter')], 400);
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function editRoleToChef(): JsonResponse
+    {
+        return new JsonResponse(['message'=>$this->userService->editRole('chef')], 400);
     }
 }
 
