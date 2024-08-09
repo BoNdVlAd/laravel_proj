@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DishesCreateRequest\DishesCreateRequest;
-use App\Http\Requests\DishesUpdateRequest\DishesUpdateRequest;
+use App\Http\Requests\DishesRequests\DishesCreateRequest;
+use App\Http\Requests\DishesRequests\DishesUpdateRequest;
 use App\Models\Dishes;
 use App\Models\Order;
 use App\Services\DishesService;

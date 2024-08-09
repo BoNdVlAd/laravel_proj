@@ -34,16 +34,18 @@ class OrderService
         $order = new Order();
 
         $order->payment_method = $data['payment_method'] ?? null;
+        $order->status = $data['status'] ?? null;
         $order->total_price = $data['total_price'] ?? null;
 
         $order->user_id = auth()->id();
 
         $order->save();
-        foreach ($data['dishesId'] as $dishId) {
-            $order->sync($dishId);
-        }
+//        foreach ($data['dishesId'] as $dishId) {
+//            $order->sync($dishId);
+//        }
 
-        return $order->load('dishes', 'users');
+//        return $order->load('dishes', 'users');
+        return $order;
     }
 
     /**

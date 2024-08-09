@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrderCreate\OrderCreate;
-use App\Http\Requests\OrderCreateRequest\OrderCreateRequest;
+use App\Http\Requests\OrderCreate\OrderCreateRequest;
 use App\Models\Order;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,5 +76,4 @@ class OrderController extends Controller
 
         return new JsonResponse(['message' => $response], Response::HTTP_OK);
     }
-
 }

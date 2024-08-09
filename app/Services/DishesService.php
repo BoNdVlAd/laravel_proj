@@ -71,10 +71,13 @@ class DishesService
     /**
      * @param $data
      * @param $order
-     * @return Dishes|null
+     * @return Dishes|string
      */
-    public function addDishToOrder($data, $order): ?Dishes
+    public function addDishToOrder($data, $order): Dishes|string
     {
+        if($order->status){
+            return 'Order was already processed';
+        }
         $dish = new Dishes;
         $dish->title = $data['title'] ?? null;
         $dish->description = $data['description'] ?? null;

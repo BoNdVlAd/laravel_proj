@@ -16,7 +16,7 @@ class UserRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->role) {
+        if (!auth()->check()) {
             return new JsonResponse('User is nor authorized.', 403);
         }
         return $next($request);

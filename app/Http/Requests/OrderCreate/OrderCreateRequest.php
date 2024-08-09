@@ -13,6 +13,7 @@ class OrderCreateRequest extends BaseRequest
     {
         return [
             'payment_method' => 'required|max:255',
+            'status' => 'required|max:255',
             'total_price' => 'required|integer',
 //            'user_id' => 'required|integer',
         ];
