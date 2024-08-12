@@ -3,8 +3,10 @@
 namespace App\Http\Requests\OrderCreate;
 
 use App\Http\Requests\BaseRequest;
+use App\Rules\PaymentCheckRule;
+use Illuminate\Validation\Validator;
 
-class OrderCreateRequest extends BaseRequest
+class OrderUpdateRequest extends BaseRequest
 {
     /**
      * @return string[]
@@ -12,8 +14,9 @@ class OrderCreateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'payment_method' => 'required|max:255',
-            'total_price' => 'required|integer',
+            '*' =>[new PaymentCheckRule],
+            'payment_method' => 'max:255',
+            'total_price' => 'integer',
         ];
     }
 
@@ -35,5 +38,11 @@ class OrderCreateRequest extends BaseRequest
             'status.string' => 'status String'
         ];
     }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+
 }
 

@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -146,6 +147,18 @@ class UserController extends Controller
     public function editRoleToChef(): JsonResponse
     {
         return new JsonResponse(['message'=>$this->userService->editRole('chef')], 400);
+    }
+
+    /**
+     * @param Request $userChangePasswordRequest
+     * @return JsonResponse
+     */
+    public function changePassword(Request $userChangePasswordRequest): JsonResponse
+    {
+        $data = $userChangePasswordRequest->getContent();
+        $content = json_decode($data, true);
+
+        return new JsonResponse(['message'=>$this->userService->changePassword($content)], 400);
     }
 }
 

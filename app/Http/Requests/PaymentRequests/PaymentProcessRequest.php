@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\OrderCreate;
+namespace App\Http\Requests\PaymentRequests;
 
 use App\Http\Requests\BaseRequest;
+use App\Rules\PaymentCheckRule;
 
-class OrderCreateRequest extends BaseRequest
+class PaymentProcessRequest extends BaseRequest
 {
     /**
      * @return string[]
@@ -12,8 +13,7 @@ class OrderCreateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'payment_method' => 'required|max:255',
-            'total_price' => 'required|integer',
+            '*' =>[new PaymentCheckRule],
         ];
     }
 

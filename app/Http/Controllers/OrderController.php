@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderCreate\OrderCreateRequest;
+use App\Http\Requests\OrderCreate\OrderUpdateRequest;
 use App\Models\Order;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,10 +53,10 @@ class OrderController extends Controller
 
     /**
      * @param Order $order
-     * @param OrderCreateRequest $orderUpdateRequest
+     * @param OrderUpdateRequest $orderUpdateRequest
      * @return JsonResponse
      */
-    public function updateOrder(Order $order, OrderCreateRequest $orderUpdateRequest): JsonResponse
+    public function updateOrder(Order $order, OrderUpdateRequest $orderUpdateRequest): JsonResponse
     {
         $data = $orderUpdateRequest->getContent();
         $content = json_decode($data, true);

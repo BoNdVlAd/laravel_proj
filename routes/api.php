@@ -9,6 +9,8 @@ use App\Http\Controllers\TestController;
 use App\Http\Middleware\UserRoleMiddleware;
 use App\Http\Controllers\OrderController;
 use App\Http\Middleware\ManagerRoleMiddleware;
+use App\Http\Controllers\StripePaymentController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * User`s routes
@@ -19,6 +21,7 @@ Route::prefix('users')->group(function() {
     Route::post('', [UserController::class, 'createUser']);
     Route::patch('/update/{user}', [UserController::class, 'updateUser']);
     Route::delete('/delete/{user}', [UserController::class, 'deleteUser']);
+    Route::patch('/change_password', [UserController::class, 'changePassword'])->middleware(UserRoleMiddleware::class);
 
     Route::get('/manager/{user}', [UserController::class, 'checkManager'])->middleware(UserRoleMiddleware::class);;
     Route::get('/waiter/{user}', [UserController::class, 'checkWaiter'])->middleware(UserRoleMiddleware::class);
@@ -81,12 +84,14 @@ Route::prefix('auth')->middleware('api')->controller(AuthController::class)->gro
     Route::post('refresh', 'refresh');
 });
 
+Route::post('/payment/{order}', [StripePaymentController::class, 'stripePost']);
+
 /**
  * Handle wrong sub url
  */
 Route::any('{url?}/{sub_url?}', function() {
-    return response()->json([
+    return new JsonResponse([
         "message" => "Page not found"
-    ], 404);
+    ], 200);
 });
 

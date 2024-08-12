@@ -94,4 +94,23 @@ class UserService
 
         return 'Role has been changed';
     }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function changePassword($data): string
+    {
+        $user = auth()->user();
+
+        if (!password_verify($data['old_password'], $user->password)) {
+            return 'Wrong old password';
+        }
+
+        $user->password = $data['new_password'];
+
+        $user->save();
+
+        return 'Password has been changed';
+    }
 }

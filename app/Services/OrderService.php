@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 
 class OrderService
 {
@@ -35,16 +34,14 @@ class OrderService
 
         $order->payment_method = $data['payment_method'] ?? null;
         $order->status = $data['status'] ?? null;
-        $order->total_price = $data['total_price'] ?? null;
-
+        $order->total_price = $data['total_price'] ?? 0;
         $order->user_id = auth()->id();
 
         $order->save();
-//        foreach ($data['dishesId'] as $dishId) {
-//            $order->sync($dishId);
-//        }
 
-//        return $order->load('dishes', 'users');
+        $order->dishes()->attach($data['dishes']);
+        $order->calculateTotalPrice();
+
         return $order;
     }
 
@@ -60,6 +57,11 @@ class OrderService
         $order->user_id = auth()->id();
 
         $order->save();
+
+        $order->dishes()->detach();
+
+        $order->dishes()->attach($data['dishes']);
+        $order->calculateTotalPrice();
 
         return $order;
     }

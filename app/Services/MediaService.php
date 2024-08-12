@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Dishes;
 use App\Models\Media;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class MediaService

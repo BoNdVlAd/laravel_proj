@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MediaRequests\MediaCreateRequest;
 use App\Http\Requests\MediaRequests\MediaUpdateRequest;
-use App\Models\Dishes;
 use App\Models\Media;
-use App\Models\Order;
 use App\Services\MediaService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

@@ -10,7 +10,7 @@ use App\Services\DishesService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class DishesController extends Controller
+class DishesController
 {
     public function __construct(
         private DishesService $dishesService
