@@ -11,6 +11,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Middleware\ManagerRoleMiddleware;
 use App\Http\Controllers\StripePaymentController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Mail\MyTestEmail;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ProfileController;
 
 /**
  * User`s routes
@@ -21,7 +24,6 @@ Route::prefix('users')->group(function() {
     Route::post('', [UserController::class, 'createUser']);
     Route::patch('/update/{user}', [UserController::class, 'updateUser']);
     Route::delete('/delete/{user}', [UserController::class, 'deleteUser']);
-    Route::patch('/change_password', [UserController::class, 'changePassword'])->middleware(UserRoleMiddleware::class);
 
     Route::get('/manager/{user}', [UserController::class, 'checkManager'])->middleware(UserRoleMiddleware::class);;
     Route::get('/waiter/{user}', [UserController::class, 'checkWaiter'])->middleware(UserRoleMiddleware::class);
@@ -82,9 +84,19 @@ Route::prefix('auth')->middleware('api')->controller(AuthController::class)->gro
     Route::get('me', 'me')->middleware(UserRoleMiddleware::class);
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::patch('/change_password', [ProfileController::class, 'changePassword'])->middleware(UserRoleMiddleware::class);
 });
 
+/**
+ * Payment order route
+ */
 Route::post('/payment/{order}', [StripePaymentController::class, 'stripePost']);
+
+/**
+ * Password recovering route
+ */
+Route::post('/reset/password/email', [ProfileController::class, 'sendResetLinkEmail']);
+Route::post('/reset/password', [ProfileController::class, 'resetPassword']);
 
 /**
  * Handle wrong sub url
@@ -94,4 +106,6 @@ Route::any('{url?}/{sub_url?}', function() {
         "message" => "Page not found"
     ], 200);
 });
+
+
 

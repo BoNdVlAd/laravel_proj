@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PaymentRequests;
+namespace App\Http\Requests\ProfileRequests;
 
 use App\Http\Requests\BaseRequest;
-use App\Rules\PaymentCheckRule;
 
-class PaymentProcessRequest extends BaseRequest
+class SendResetLinkEmailRequest extends BaseRequest
 {
     /**
      * @return array
@@ -13,10 +12,7 @@ class PaymentProcessRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            '*' =>[new PaymentCheckRule],
-            'number' => 'max:16',
-            'cvc' => 'integer|digits:3',
-            'description' => 'string|max:255',
+            'email' => 'required|email'
         ];
     }
 
