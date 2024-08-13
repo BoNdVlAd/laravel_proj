@@ -54,12 +54,12 @@ class ProfileService
             $data,
             function ($user, $password) {
                 $user->password = $password;
-                
+
                 $user->save();
             }
         );
 
-        if ($status === Password::RESET_LINK_SENT) {
+        if ($status === Password::PASSWORD_RESET) {
             return __($status);
         } else {
             abort(404, 'email could not be sent');
