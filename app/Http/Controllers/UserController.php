@@ -141,12 +141,11 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
      * @return JsonResponse
      */
     public function editRoleToChef(): JsonResponse
     {
-        return new JsonResponse(['message'=>$this->userService->editRole('chef')], 400);
+        return new JsonResponse(['message' => $this->userService->editRole('chef')], 400);
     }
 
     /**
@@ -158,7 +157,7 @@ class UserController extends Controller
         $data = $userChangePasswordRequest->getContent();
         $content = json_decode($data, true);
 
-        return new JsonResponse(['message'=>$this->userService->changePassword($content)], 400);
+        return new JsonResponse(['message' => $this->userService->changePassword($content)], 400);
     }
 }
 

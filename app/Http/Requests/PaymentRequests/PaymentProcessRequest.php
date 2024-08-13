@@ -8,12 +8,14 @@ use App\Rules\PaymentCheckRule;
 class PaymentProcessRequest extends BaseRequest
 {
     /**
-     * @return string[]
+     * @return array
      */
     public function rules(): array
     {
         return [
             '*' =>[new PaymentCheckRule],
+            'number' => 'max:255',
+            'description' => 'string|max:255',
         ];
     }
 

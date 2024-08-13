@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Requests\OrderCreate\OrderPaymentCheck;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Stripe;
@@ -16,14 +15,13 @@ class PaymentService
      */
     public function paymentProcess($order, $content): JsonResponse
     {
-        try{
+        try {
             $stripe = new Stripe\StripeClient(env('STRIPE_SECRET'));
 
             $testToken = 'tok_visa';
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
             $order->status = true;
-
 
             $order->save();
 
@@ -35,8 +33,7 @@ class PaymentService
             ]);
 
             return new JsonResponse([$response], 201);
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             return new JsonResponse(['message'=>'hello'], 500);
         }
     }

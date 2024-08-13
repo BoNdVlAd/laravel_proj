@@ -9,16 +9,17 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class PaymentCheckRule implements ValidationRule
 {
     /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param string $attribute
+     * @param mixed $value
+     * @param Closure $fail
+     * @return void
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $order = request()->order;
 
         if ($order->status == 1) {
-            $fail('the order has already been paid for');
+            $fail('message','the order has already been paid for');
         }
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Validation\Validator;
 class OrderUpdateRequest extends BaseRequest
 {
     /**
-     * @return string[]
+     * @return array
      */
     public function rules(): array
     {
@@ -38,11 +38,5 @@ class OrderUpdateRequest extends BaseRequest
             'status.string' => 'status String'
         ];
     }
-
-    /**
-     * @param Validator $validator
-     * @return void
-     */
-
 }
 
