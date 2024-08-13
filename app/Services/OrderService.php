@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Dishes;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -39,8 +40,16 @@ class OrderService
 
         $order->save();
 
-        $order->dishes()->attach($data['dishes']);
+        foreach ($data['dishes'] as $dishData) {
+            $dish = Dishes::find($dishData['id']);
+            for ($i = 0; $i < $dishData['qty']; $i++) {
+                $order->dishes()->attach($dish);
+            }
+        }
+
         $order->calculateTotalPrice();
+
+        $order->save();
 
         return $order;
     }

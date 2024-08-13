@@ -147,18 +147,6 @@ class UserController extends Controller
     {
         return new JsonResponse(['message' => $this->userService->editRole('chef')], 400);
     }
-
-    /**
-     * @param Request $userChangePasswordRequest
-     * @return JsonResponse
-     */
-    public function changePassword(Request $userChangePasswordRequest): JsonResponse
-    {
-        $data = $userChangePasswordRequest->getContent();
-        $content = json_decode($data, true);
-
-        return new JsonResponse(['message' => $this->userService->changePassword($content)], 400);
-    }
 }
 
 

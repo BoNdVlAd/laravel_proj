@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\traits\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;

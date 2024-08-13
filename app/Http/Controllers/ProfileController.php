@@ -2,62 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileRequests\ResetPasswordRequest;
+use App\Http\Requests\ProfileRequests\SendResetLinkEmailRequest;
+use App\Http\Requests\ProfileRequests\UserChangePasswordRequest;
+use App\Services\ProfileService;
+use Illuminate\Http\JsonResponse;
 
 class ProfileController extends Controller
 {
-    /**
-     * @param Request $request
-     * @return View
-     */
-    public function edit(Request $request): View
+    public function __construct(
+        private ProfileService $profileService
+    )
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
     }
 
     /**
-     * @param ProfileUpdateRequest $request
-     * @return RedirectResponse
+     * @param UserChangePasswordRequest $userChangePasswordRequest
+     * @return JsonResponse
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function changePassword(UserChangePasswordRequest $userChangePasswordRequest): JsonResponse
     {
-        $request->user()->fill($request->validated());
+        $data = $userChangePasswordRequest->getContent();
+        $content = json_decode($data, true);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return new JsonResponse(['message' => $this->profileService->changePassword($content)], 400);
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse
+     * @param SendResetLinkEmailRequest $sendResetLinkEmailRequest
+     * @return JsonResponse
      */
-    public function destroy(Request $request): RedirectResponse
+    public function sendResetLinkEmail(SendResetLinkEmailRequest $sendResetLinkEmailRequest): JsonResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        $data = $sendResetLinkEmailRequest->getContent();
+        $content = json_decode($data, true);
 
-        $user = $request->user();
+        return new JsonResponse(['message' => $this->profileService->sendResetLinkEmail($content)], 200);
 
-        Auth::logout();
+    }
 
-        $user->delete();
+    /**
+     * @param ResetPasswordRequest $resetPasswordRequest
+     * @return JsonResponse
+     */
+    public function resetPassword(ResetPasswordRequest $resetPasswordRequest): JsonResponse
+    {
+        $data = $resetPasswordRequest->getContent();
+        $content = json_decode($data, true);
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return new JsonResponse(['message' => $this->profileService->resetPassword($content)], 200);
     }
 }

@@ -18,7 +18,7 @@ class StripePaymentController extends Controller
 
     /**
      * @param Order $order
-     * @param PaymentProcessRequest $PaymentRequest
+     * @param PaymentProcessRequest $paymentRequest
      * @return JsonResponse
      */
     public function stripePost(Order $order, PaymentProcessRequest $paymentRequest): JsonResponse
