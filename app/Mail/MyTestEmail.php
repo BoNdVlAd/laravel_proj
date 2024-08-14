@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -14,13 +13,10 @@ class MyTestEmail extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
      *
-     * @return void
      */
-    public function __construct(private $name)
+    public function __construct()
     {
-        //
     }
 
     /**
@@ -36,15 +32,12 @@ class MyTestEmail extends Mailable
     }
 
     /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
+     * @return Content
      */
     public function content()
     {
         return new Content(
             view: 'mail.test-email',
-            with: ['name' => $this->name],
         );
     }
 }
