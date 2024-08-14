@@ -23,6 +23,7 @@ class UserController extends Controller
      */
     public function getUsers(): JsonResponse
     {
+        abort(500, 'test error');
         $users = $this->userService->getAllUsers();
 
         return new JsonResponse($users, Response::HTTP_OK);
