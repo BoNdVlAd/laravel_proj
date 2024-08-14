@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Mail\SampleEmail;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Mail;
 use Stripe;
 
 class PaymentService
@@ -33,8 +31,6 @@ class PaymentService
                 'source' => $testToken,
                 'description' => $content['description'],
             ]);
-
-            Mail::to('recipient@example.com')->send(new SampleEmail());
 
             return new JsonResponse([$response], 201);
         } catch (Exception $e) {

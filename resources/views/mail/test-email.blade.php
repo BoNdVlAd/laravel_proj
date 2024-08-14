@@ -1,3 +1,1 @@
-Hey {{$name}},
-Can your Laravel app send emails yet? 😉
-Mailtrap
+Dear User, someone's trying to change your password!

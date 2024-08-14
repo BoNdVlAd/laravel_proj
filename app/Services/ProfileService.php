@@ -2,16 +2,13 @@
 
 namespace App\Services;
 
-use App\Http\Requests\ProfileRequests\ResetPasswordRequest;
-use App\Http\Requests\ProfileRequests\SendResetLinkEmailRequest;
-use Error;
-use Illuminate\Http\JsonResponse;
+use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Password;
 
 class ProfileService
 {
     /**
-     * @param $data
+     * @param array $data
      * @return string
      */
     public function changePassword(array $data): string
@@ -36,6 +33,8 @@ class ProfileService
     public function sendResetLinkEmail($data): string
     {
         $status = Password::sendResetLink($data);
+
+        dispatch(new SendEmailJob($data));
 
         if ($status === Password::RESET_LINK_SENT) {
             return __($status);

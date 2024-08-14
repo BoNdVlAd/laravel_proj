@@ -8,7 +8,6 @@ use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
