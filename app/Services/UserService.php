@@ -13,7 +13,7 @@ class UserService
      */
     public function getAllUsers(): Collection
     {
-        return User::all()->load('orders');
+        return User::all();
     }
 
     /**

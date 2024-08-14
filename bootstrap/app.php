@@ -23,5 +23,4 @@ return Application::configure(basePath: dirname(__DIR__))
                 'message' => $e->getMessage()
             ], 404);
         });
-
     })->create();
