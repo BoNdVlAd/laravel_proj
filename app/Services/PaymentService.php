@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\PaymentController;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Stripe;
@@ -32,9 +33,12 @@ class PaymentService
                 'description' => $content['description'],
             ]);
 
+            $paymentController = new PaymentController();
+            $paymentController->changePaymentStatus($order->id);
+
             return new JsonResponse([$response], 201);
         } catch (Exception $e) {
-            return new JsonResponse(['message'=>'hello'], 500);
+            return new JsonResponse(['message'=>$e], 500);
         }
     }
 }

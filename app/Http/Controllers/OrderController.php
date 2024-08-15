@@ -8,6 +8,7 @@ use App\Models\Order;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\OrderService;
+use App\Http\Controllers\PaymentController;
 
 class OrderController extends Controller
 {
@@ -43,10 +44,20 @@ class OrderController extends Controller
      */
     public function createOrder(OrderCreateRequest $orderCreateRequest): JsonResponse
     {
+
+
         $data = $orderCreateRequest->getContent();
         $content = json_decode($data, true);
 
+
+
         $order = $this->orderService->createOrder($content);
+
+        $paymentController = new PaymentController();
+
+        $paymentController->createPayment($order);
+
+
 
         return new JsonResponse($order, Response::HTTP_OK);
     }

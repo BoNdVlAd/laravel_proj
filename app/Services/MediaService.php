@@ -15,9 +15,9 @@ class MediaService
     /**
      * @return Collection
      */
-    public function getAllMedia(): Collection
+    public function getAllMedia($model): Collection
     {
-        return Media::all();
+        return $model->gallery->media;
     }
 
     /**
@@ -29,47 +29,36 @@ class MediaService
         return $media;
     }
 
-
-    /**
-     * @param $files
-     * @return mixed
-     */
-    public function createMedias($files)
-    {
-        $user = auth()->user();
-
-        $gallery = $user->gallery()->firstOrCreate();
-
-        foreach ($files->file('files') as $key => $file) {
-            if ($file->isValid()) {
-                $filePath = $file->store('uploads', 'public');
-                $gallery->media()->create([
-                    'filename' => $file->getClientOriginalName(),
-                    'mime_type' => $file->getMimeType(),
-                    'size' => $file->getSize(),
-                    'url' => Storage::url($filePath)
-                ]);
-            } else {
-                abort(400, "Media upload failed");
-            }
-        }
-        return $gallery->media;
-    }
-
     /**
      * @param $file
      * @return Media|null
      */
-    public function createMedia($file): ?Media
+    public function createMedia($model, $file): string
     {
+        if ($file->hasFile('files')) {
+            $gallery = $model->gallery()->firstOrCreate();
+
+            foreach ($file->file('files') as $key => $file) {
+                if ($file->isValid()) {
+                    $filePath = $file->store('uploads', 'public');
+                    $gallery->media()->create([
+                        'filename' => $file->getClientOriginalName(),
+                        'mime_type' => $file->getMimeType(),
+                        'size' => $file->getSize(),
+                        'url' => Storage::url($filePath)
+                    ]);
+                } else {
+                    abort(400, "Media upload failed");
+                }
+            }
+            return "Media uploaded successfully";
+        }
 
         if ($file->file('file')->isValid()) {
 
             $filePath = $file->file('file')->store('uploads', 'public');
 
-            $user = auth()->user();
-
-            $gallery = $user->gallery()->firstOrCreate();
+            $gallery = $model->gallery()->firstOrCreate();
 
             $media = $gallery->media()->create([
                 'filename' => $file->file('file')->getClientOriginalName(),
@@ -88,16 +77,21 @@ class MediaService
      * @param array $data
      * @return Media|null
      */
-    public function updateMedia($media, array $data): ?Media
+    public function updateMedia($media, $file): ?Media
     {
-        $media->filename = $data['filename'] ?? $media->filename;
-        $media->mime_type = $data['mime_type'] ?? $media->mime_type;
-        $media->size = $data['size'] ?? $media->size;
-        $media->url = $data['url'] ?? $media->url;
+        if ($file->file('file')->isValid()) {
+            $filePath = $file->file('file')->store('uploads', 'public');
 
-        $media->save();
+            $media->filename = $file->file('file')->getClientOriginalName();
+            $media->mime_type = $file->file('file')->getMimeType();
+            $media->size = $file->file('file')->getSize();
+            $media->url = Storage::url($filePath);
 
-        return $media;
+            $media->save();
+
+            return $media;
+        }
+        abort(400, "Media upload failed");
     }
 
     /**
