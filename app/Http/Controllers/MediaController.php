@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MediaRequests\MediaCreateRequest;
 use App\Http\Requests\MediaRequests\MediaUpdateRequest;
+use App\Http\Requests\MediaRequests\UploadFileRequest;
 use App\Models\Media;
 use App\Services\MediaService;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -39,17 +42,17 @@ class MediaController extends Controller
     }
 
     /**
-     * @param MediaCreateRequest $mediaCreateRequest
+     * @param UploadFileRequest $uploadFileRequest
      * @return JsonResponse
      */
-    public function createMedia(MediaCreateRequest $mediaCreateRequest): JsonResponse
+    public function createMedia(Request $uploadFileRequest): JsonResponse
     {
-        $data = $mediaCreateRequest->getContent();
-        $content = json_decode($data, true);
+        if($uploadFileRequest->hasFile('files')) {
+            return new JsonResponse($this->mediaService->createMedias($uploadFileRequest), Response::HTTP_CREATED);
+        }
 
-        $dish = $this->mediaService->createMedia($content);
+        return new JsonResponse($this->mediaService->createMedia($uploadFileRequest), Response::HTTP_CREATED);
 
-        return new JsonResponse($dish, Response::HTTP_OK);
     }
 
     /**
