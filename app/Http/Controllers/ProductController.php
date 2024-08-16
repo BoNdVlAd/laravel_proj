@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequests\ProductCreateRequest;
 use App\Http\Requests\ProductRequests\ProductUpdateRequest;
-use App\Models\Payment;
 use App\Models\Product;
 use App\Services\ProductService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -68,7 +67,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Order $order
+     * @param Product $product
      * @return JsonResponse
      */
     public function deleteProduct(Product $product): JsonResponse

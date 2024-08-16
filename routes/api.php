@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DishesController;
@@ -84,6 +86,33 @@ Route::prefix('products')->group(function() {
     Route::post('', [ProductController::class, 'createProduct']);
     Route::patch('/update/{product}', [ProductController::class, 'updateProduct']);
 });
+
+/**
+ * Restaurant`s routes
+ */
+Route::prefix('restaurants')->group(function() {
+    Route::get('', [RestaurantController::class, 'getRestaurants']);
+    Route::post('', [RestaurantController::class, 'createRestaurant']);
+
+    Route::get('/nearestRestaurant', [RestaurantController::class, 'getNearestRestaurant']);
+
+    Route::get('/menu/{restaurant}', [RestaurantController::class, 'getMenu']);
+});
+
+/**
+ * Menu`s routes
+ */
+Route::prefix('menu')->group(function() {
+    Route::prefix('/restaurant')->group(function() {
+        Route::prefix('/{restaurant}')->group(function() {
+            Route::get('', [MenuController::class, 'getMenu']);
+            Route::post('', [MenuController::class, 'createMenu']);
+        });
+    });
+    Route::delete('/delete/{menu}', [MenuController::class, 'deleteMenu']);
+});
+
+
 
 /**
  * Invoke`s routes
