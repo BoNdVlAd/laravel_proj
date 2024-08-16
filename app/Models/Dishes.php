@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use App\Models\Order;
 
 class Dishes extends Model
 {
@@ -16,6 +15,14 @@ class Dishes extends Model
     protected $casts = [
         'recipe' => 'array'
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function menu(): BelongsToMany
+    {
+        return $this->belongsToMany(Menu::class, 'dish_menu');
+    }
 
     /**
      * @return BelongsToMany

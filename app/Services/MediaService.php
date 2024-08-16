@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MediaService
 {
     /**
+     * @param $model
      * @return Collection
      */
     public function getAllMedia($model): Collection
@@ -22,7 +23,7 @@ class MediaService
 
     /**
      * @param $media
-     * @return Dishes|null
+     * @return Media|null
      */
     public function getMediaById($media): ?Media
     {
@@ -30,8 +31,9 @@ class MediaService
     }
 
     /**
+     * @param $model
      * @param $file
-     * @return Media|null
+     * @return string
      */
     public function createMedia($model, $file): string
     {
@@ -74,7 +76,7 @@ class MediaService
 
     /**
      * @param $media
-     * @param array $data
+     * @param $file
      * @return Media|null
      */
     public function updateMedia($media, $file): ?Media
@@ -103,5 +105,4 @@ class MediaService
         $media->delete();
         return 'Dish was removed';
     }
-
 }

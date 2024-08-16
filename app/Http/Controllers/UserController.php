@@ -170,8 +170,6 @@ class UserController extends Controller
 
         return new JsonResponse($allMedia, Response::HTTP_OK);
     }
-
-
 }
 
 
