@@ -5,20 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MediaRequests\MediaCreateRequest;
 use App\Http\Requests\MediaRequests\MediaUpdateRequest;
 use App\Http\Requests\MediaRequests\UploadFileRequest;
+use App\Models\Dishes;
 use App\Models\Media;
 use App\Services\MediaService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
+
 
 class MediaController extends Controller
 {
+
     public function __construct(
         private MediaService $mediaService
     )
     {
     }
+
 
     /**
      * @return JsonResponse
@@ -45,30 +51,25 @@ class MediaController extends Controller
      * @param UploadFileRequest $uploadFileRequest
      * @return JsonResponse
      */
-    public function createMedia(Request $uploadFileRequest): JsonResponse
+    public function createMedia(User $model, Request $uploadFileRequest): JsonResponse
     {
-        if($uploadFileRequest->hasFile('files')) {
+        dd($model);
+        if ($uploadFileRequest->hasFile('files')) {
             return new JsonResponse($this->mediaService->createMedias($uploadFileRequest), Response::HTTP_CREATED);
         }
 
-        return new JsonResponse($this->mediaService->createMedia($uploadFileRequest), Response::HTTP_CREATED);
+        return new JsonResponse($this->mediaService->createMedia($uploadFileRequest, $model), Response::HTTP_CREATED);
 
     }
 
     /**
      * @param Media $media
-     * @param MediaUpdateRequest $mediaUpdateRequest
+     * @param Request $mediaUpdateRequest
      * @return JsonResponse
      */
-    public function updateMedia(Media $media, MediaUpdateRequest $mediaUpdateRequest): JsonResponse
+    public function updateMedia(Media $media, Request $mediaUpdateRequest): JsonResponse
     {
-        $data = $mediaUpdateRequest->getContent();
-        $content = json_decode($data, true);
-
-        $media = $this->mediaService->updateMedia($media, $content);
-
-        return new JsonResponse($media, Response::HTTP_OK);
-
+        return new JsonResponse($this->mediaService->updateMedia($media, $mediaUpdateRequest), Response::HTTP_OK);
     }
 
     /**

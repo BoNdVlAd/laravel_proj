@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DishesController;
@@ -11,8 +12,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Middleware\ManagerRoleMiddleware;
 use App\Http\Controllers\StripePaymentController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Mail\MyTestEmail;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ProfileController;
 
 /**
@@ -64,11 +63,26 @@ Route::prefix('dishes')->group(function() {
  * Media`s routes
  */
 Route::prefix('media')->group(function() {
-    Route::get('', [MediaController::class, 'getMedia']);
+    Route::get('/users/{model}', [UserController::class, 'getMedia']);
+    Route::get('/dishes/{model}', [DishesController::class, 'getMedia']);
+
     Route::get('/{media}', [MediaController::class, 'getMediaById']);
-    Route::post('', [MediaController::class, 'createMedia']);
-    Route::patch('/update/{media}', [MediaController::class, 'updateMedia']);
+
+    Route::post('/users/{model}', [UserController::class, 'createMedia']);
+    Route::post('/dishes/{model}', [DishesController::class, 'createMedia']);
+
+    Route::post('/update/{media}', [MediaController::class, 'updateMedia']);
     Route::delete('/delete/{media}', [MediaController::class, 'deleteMedia']);
+});
+
+/**
+ *  Product`s routes
+ */
+Route::prefix('products')->group(function() {
+    Route::get('', [ProductController::class, 'getProducts']);
+    Route::get('/{product}', [ProductController::class, 'getProduct']);
+    Route::post('', [ProductController::class, 'createProduct']);
+    Route::patch('/update/{product}', [ProductController::class, 'updateProduct']);
 });
 
 /**

@@ -13,6 +13,10 @@ class Dishes extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'recipe' => 'array'
+    ];
+
     /**
      * @return BelongsToMany
      */

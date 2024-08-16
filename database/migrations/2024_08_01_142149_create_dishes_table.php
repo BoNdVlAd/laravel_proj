@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->unique()->nullable();
             $table->string('description')->nullable();
             $table->integer('price')->nullable();
-            $table->jsonb("ingredients")->nullable();
+            $table->json("recipe")->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->foreignId('order_id')->default(1);

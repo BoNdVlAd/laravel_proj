@@ -34,6 +34,7 @@ class DishesService
         $dish->title = $data['title'] ?? null;
         $dish->description = $data['description'] ?? null;
         $dish->price = $data['price'] ?? null;
+        $dish->recipe = $data['recipe'] ?? null;
 
         $dish->save();
 

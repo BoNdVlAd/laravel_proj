@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\DishesRequests;
+namespace App\Http\Requests\ProductRequests;
 
 use App\Http\Requests\BaseRequest;
 
-class DishesCreateRequest extends BaseRequest
+class ProductCreateRequest extends BaseRequest
 {
     /**
      * @return string[]
@@ -12,10 +12,8 @@ class DishesCreateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255|unique:dishes',
-            'price' => 'required',
-            'description' => 'required|string|max:255',
-//            'recipe' => 'json'
+            'title' => 'unique:products,title|string|min:4',
+            'weight' => 'required|integer',
         ];
     }
 
@@ -34,6 +32,8 @@ class DishesCreateRequest extends BaseRequest
             'password.required' => 'The password field is required.',
             'password.string' => 'The password field must be a string.',
             'password.min' => 'The password must be at least 8 characters long.',
+            'status.string' => 'status String'
         ];
     }
 }
+

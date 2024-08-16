@@ -7,13 +7,16 @@ use App\Http\Requests\DishesRequests\DishesUpdateRequest;
 use App\Models\Dishes;
 use App\Models\Order;
 use App\Services\DishesService;
+use App\Services\MediaService;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class DishesController
 {
     public function __construct(
-        private DishesService $dishesService
+        private DishesService $dishesService,
+        private MediaService $mediaService
     )
     {
     }
@@ -93,5 +96,27 @@ class DishesController
         $dish = $this->dishesService->addDishToOrder($content, $order);
 
         return new JsonResponse($dish, Response::HTTP_OK);
+    }
+
+    /**
+     * @param Dishes $model
+     * @param Request $uploadFileRequest
+     * @return JsonResponse
+     */
+    public function createMedia(Dishes $model, Request $uploadFileRequest): JsonResponse
+    {
+        return new JsonResponse($this->mediaService->createMedia($model, $uploadFileRequest), Response::HTTP_CREATED);
+
+    }
+
+    /**
+     * @param Dishes $model
+     * @return JsonResponse
+     */
+    public function getMedia(Dishes $model): JsonResponse
+    {
+        $allMedia = $this->mediaService->getAllMedia($model);
+
+        return new JsonResponse($allMedia, Response::HTTP_OK);
     }
 }

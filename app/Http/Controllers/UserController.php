@@ -6,14 +6,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequests\UserCreateRequest;
 use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Models\User;
+use App\Services\MediaService;
 use App\Services\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function __construct(
-        private UserService $userService
+        private UserService $userService,
+        private MediaService $mediaService
     )
     {
     }
@@ -147,6 +150,28 @@ class UserController extends Controller
     {
         return new JsonResponse(['message' => $this->userService->editRole('chef')], 400);
     }
+
+    /**
+     * @param User $model
+     * @param Request $uploadFileRequest
+     * @return JsonResponse
+     */
+    public function createMedia(User $model, Request $uploadFileRequest): JsonResponse
+    {
+        return new JsonResponse($this->mediaService->createMedia($model, $uploadFileRequest), Response::HTTP_CREATED);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getMedia(User $model): JsonResponse
+    {
+        $allMedia = $this->mediaService->getAllMedia($model);
+
+        return new JsonResponse($allMedia, Response::HTTP_OK);
+    }
+
+
 }
 
 

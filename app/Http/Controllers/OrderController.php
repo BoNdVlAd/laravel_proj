@@ -43,10 +43,20 @@ class OrderController extends Controller
      */
     public function createOrder(OrderCreateRequest $orderCreateRequest): JsonResponse
     {
+
+
         $data = $orderCreateRequest->getContent();
         $content = json_decode($data, true);
 
+
+
         $order = $this->orderService->createOrder($content);
+
+        $paymentController = new PaymentController();
+
+        $paymentController->createPayment($order);
+
+
 
         return new JsonResponse($order, Response::HTTP_OK);
     }
