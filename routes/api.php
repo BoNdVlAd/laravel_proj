@@ -112,8 +112,6 @@ Route::prefix('menu')->group(function() {
     Route::delete('/delete/{menu}', [MenuController::class, 'deleteMenu']);
 });
 
-
-
 /**
  * Invoke`s routes
  */
