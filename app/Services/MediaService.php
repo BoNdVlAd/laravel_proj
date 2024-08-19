@@ -2,13 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Dishes;
 use App\Models\Media;
-use http\Client\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class MediaService
 {

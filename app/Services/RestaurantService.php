@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Menu;
 use App\Models\Restaurant;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class RestaurantService
@@ -20,7 +18,7 @@ class RestaurantService
 
     /**
      * @param array $data
-     * @return User|null
+     * @return Restaurant|null
      */
     public function createRestaurant(array $data): ?Restaurant
     {
@@ -36,59 +34,9 @@ class RestaurantService
     }
 
     /**
-     * @param $user
      * @param array $data
-     * @return User|null
+     * @return array
      */
-    public function updateUser($user, array $data): ?User
-    {
-        $user->name = $data['name'] ?? $user->name;
-        $user->email = $data['email'] ?? $user->email;
-        $user->password = $data['password'] ?? $user->password;
-
-        $user->save();
-
-        return $user;
-    }
-
-    /**
-     * @param $user
-     * @return string
-     */
-    public function deleteUser($user): string
-    {
-        $user->delete();
-
-        return 'User has been deleted';
-    }
-
-    /**
-     * @param $role
-     * @return string
-     */
-    public function checkRole($role): string
-    {
-        $user = auth()->user();
-        if($user->hasRole($role)) {
-            return 'true';
-        }
-        return 'false';
-    }
-
-
-    /**
-     * @param $role
-     * @return string
-     */
-    public function editRole($role): string
-    {
-        $user = auth()->user();
-        $user->roles()->detach();
-        $user->roles()->attach(Role::where('slug',$role)->first());
-
-        return 'Role has been changed';
-    }
-
     public function getNearestRestaurant(array $data): array
     {
         $userCoordinates = [
@@ -106,6 +54,11 @@ class RestaurantService
             'country' => $nearestRestaurant->country,
         ];
     }
+
+    /**
+     * @param Restaurant $restaurant
+     * @return Menu
+     */
     public function getMenu(Restaurant $restaurant): Menu
     {
         return $restaurant->menu()->first();
