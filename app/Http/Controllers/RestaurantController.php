@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RestaurantRequests\RestaurantCreateRequest;
 use App\Http\Requests\RestaurantRequests\RestaurantGetTheNearestRequest;
+use App\Http\Requests\RestaurantRequests\RestaurantUpdateRequest;
 use App\Models\Restaurant;
 use App\Services\RestaurantService;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,11 +55,25 @@ class RestaurantController extends Controller
      * @param Restaurant $restaurant
      * @return JsonResponse
      */
-    public function getMenu(Restaurant $restaurant): JsonResponse
+    public function updateRestaurant(Restaurant $restaurant, RestaurantUpdateRequest $restaurantUpdateRequest): JsonResponse
     {
-        $restaurant = $this->restaurantService->getMenu($restaurant);
+        $data = $restaurantUpdateRequest->getContent();
+        $content = json_decode($data, true);
+
+        $restaurant = $this->restaurantService->updateRestaurant($restaurant, $content);
 
         return new JsonResponse($restaurant, Response::HTTP_OK);
+    }
+
+    /**
+     * @param Restaurant $restaurant
+     * @return JsonResponse
+     */
+    public function deleteRestaurant(Restaurant $restaurant): JsonResponse
+    {
+        $response = $this->restaurantService->deleteRestaurant($restaurant);
+
+        return new JsonResponse(['response' => $response], 202);
     }
 }
 

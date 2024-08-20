@@ -35,9 +35,10 @@ class UserService
         $user->name = $data['name'] ?? null;
         $user->email = $data['email'] ?? null;
         $user->password = $data['password'] ?? null;
-
+        
         $user->save();
 
+        $user->roles()->attach(Role::where('slug','customer')->first());
         return $user;
     }
 

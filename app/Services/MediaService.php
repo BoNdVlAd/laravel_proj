@@ -49,6 +49,7 @@ class MediaService
                     abort(400, "Media upload failed");
                 }
             }
+
             return "Media uploaded successfully";
         }
 
@@ -65,7 +66,7 @@ class MediaService
                 'url' => Storage::url($filePath)
             ]);
 
-            return $media;
+            return "Media uploaded successfully";
         }
         abort(400, "Media upload failed");
     }

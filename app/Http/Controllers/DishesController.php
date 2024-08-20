@@ -26,9 +26,12 @@ class DishesController
      */
     public function getDishes(): JsonResponse
     {
-        $dishes = $this->dishesService->getAllDishes();
+        $queryParams = request()->query();
+        $dishes = $this->dishesService->getAllDishes($queryParams);
+
 
         return new JsonResponse($dishes, Response::HTTP_OK);
+
     }
 
     /**
