@@ -5,7 +5,7 @@ namespace App\Helpers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
-class DishesPagintaionHelper
+class PagintaionHelper
 {
     /**
      * @param Collection $results
@@ -13,7 +13,7 @@ class DishesPagintaionHelper
      * @param $queryParams
      * @return mixed
      */
-    public static function paginate(Collection $results, $showPerPage, $queryParams)
+    public static function paginate(Collection $results, $showPerPage, $queryParams): array
     {
         $pageNumber = Paginator::resolveCurrentPage('page');
 
@@ -25,7 +25,7 @@ class DishesPagintaionHelper
      * @param $queryParams
      * @return mixed
      */
-    protected static function filter($items, $queryParams)
+    public static function filter($items, $queryParams): array
     {
         $sortField = $queryParams['sortField'] ?? 'id';
         $sortBy    = $queryParams['sortBy'] ?? 'ASC';

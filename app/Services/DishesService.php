@@ -2,23 +2,22 @@
 
 namespace App\Services;
 
-use App\Helpers\DishesPagintaionHelper;
+use App\Helpers\PagintaionHelper;
 use App\Models\Dishes;
-use Illuminate\Database\Eloquent\Collection;
 
 class DishesService
 {
     /**
      * @param $queryParams
-     * @return mixed
+     * @return array
      */
-    public function getAllDishes($queryParams)
+    public function getAllDishes($queryParams): array
     {
         $dishes = Dishes::all();
 
-        $showPerPage = $queryParams['perPage'];
+        $showPerPage = $queryParams['perPage'] ?? 10;
 
-        $paginated = DishesPagintaionHelper::paginate($dishes, $showPerPage, $queryParams);
+        $paginated = PagintaionHelper::paginate($dishes, $showPerPage, $queryParams);
 
         return $paginated;
     }
@@ -30,8 +29,6 @@ class DishesService
     public function getDishesById($dishes): ?Dishes
     {
         return $dishes;
-
-
     }
 
     /**

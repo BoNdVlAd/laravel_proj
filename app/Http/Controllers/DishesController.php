@@ -31,7 +31,6 @@ class DishesController
 
 
         return new JsonResponse($dishes, Response::HTTP_OK);
-
     }
 
     /**

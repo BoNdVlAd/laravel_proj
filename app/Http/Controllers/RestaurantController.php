@@ -22,7 +22,8 @@ class RestaurantController extends Controller
      */
     public function getRestaurants(): JsonResponse
     {
-        $restaurants = $this->restaurantService->getAllRestaurants();
+        $queryParams = request()->query();
+        $restaurants = $this->restaurantService->getAllRestaurants($queryParams);
 
         return new JsonResponse($restaurants, Response::HTTP_OK);
     }

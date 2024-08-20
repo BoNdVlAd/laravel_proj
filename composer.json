@@ -24,7 +24,7 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/DishesPagintaionHelper.php"
+            "app/Helpers/PagintaionHelper.php"
         ],
         "psr-4": {
             "App\\": "app/",
