@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\PagintaionHelper;
 use App\Models\Dishes;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,9 +12,15 @@ class OrderService
     /**
      * @return Collection
      */
-    public function getAllOrders(): Collection
+    public function getAllOrders($queryParams): array
     {
-        return Order::all();
+        $orders =  Order::all();
+
+        $showPerPage = $queryParams['perPage'] ?? 10;
+
+        $paginated = PagintaionHelper::paginate($orders, $showPerPage, $queryParams);
+
+        return $paginated;
     }
 
     /**

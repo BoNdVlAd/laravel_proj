@@ -5,15 +5,22 @@ namespace App\Services;
 use App\Models\Menu;
 use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Collection;
+use App\Helpers\PagintaionHelper;
 
 class RestaurantService
 {
     /**
      * @return Collection
      */
-    public function getAllRestaurants(): Collection
+    public function getAllRestaurants($queryParams): array
     {
-        return Restaurant::all();
+        $restaurants =  Restaurant::all();
+
+        $showPerPage = $queryParams['perPage'] ?? 10;
+
+        $paginated = PagintaionHelper::paginate($restaurants, $showPerPage, $queryParams);
+
+        return $paginated;
     }
 
     /**
@@ -55,12 +62,26 @@ class RestaurantService
         ];
     }
 
+    public function updateRestaurant(Restaurant $restaurant, array $data): Restaurant
+    {
+        $restaurant->name = $data['name'] ?? $restaurant->name;
+        $restaurant->country = $data['country'] ?? $restaurant->country;
+        $restaurant->latitude = $data['latitude'] ?? $restaurant->latitude;
+        $restaurant->longitude = $data['longitude'] ?? $restaurant->longitude;
+
+        $restaurant->save();
+
+        return $restaurant;
+    }
+
     /**
      * @param Restaurant $restaurant
-     * @return Menu
+     * @return string
      */
-    public function getMenu(Restaurant $restaurant): Menu
+    public function deleteRestaurant(Restaurant $restaurant): string
     {
-        return $restaurant->menu()->first();
+        $restaurant->delete();
+
+        return 'restaurant was deleted';
     }
 }

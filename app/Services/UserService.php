@@ -2,18 +2,24 @@
 
 namespace App\Services;
 
+use App\Helpers\PagintaionHelper;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 
 class UserService
 {
     /**
-     * @return Collection
+     * @return array
      */
-    public function getAllUsers(): Collection
+    public function getAllUsers($queryParams): array
     {
-        return User::all();
+        $users = User::all();
+
+        $showPerPage = $queryParams['perPage'] ?? 10;
+
+        $paginated = PagintaionHelper::paginate($users, $showPerPage, $queryParams);
+
+        return $paginated;
     }
 
     /**
@@ -38,6 +44,7 @@ class UserService
 
         $user->save();
 
+        $user->roles()->attach(Role::where('slug','customer')->first());
         return $user;
     }
 

@@ -22,7 +22,9 @@ class OrderController extends Controller
      */
     public function getOrders(): JsonResponse
     {
-        $orders = $this->orderService->getAllOrders();
+        $queryParams = request()->query();
+        $orders = $this->orderService->getAllOrders($queryParams);
+
         return new JsonResponse($orders, Response::HTTP_OK);
     }
 

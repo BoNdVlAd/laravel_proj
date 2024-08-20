@@ -96,7 +96,8 @@ Route::prefix('restaurants')->group(function() {
 
     Route::get('/nearestRestaurant', [RestaurantController::class, 'getNearestRestaurant']);
 
-    Route::get('/menu/{restaurant}', [RestaurantController::class, 'getMenu']);
+    Route::patch('/update/{restaurant}', [RestaurantController::class, 'updateRestaurant']);
+    Route::delete('/delete/{restaurant}', [RestaurantController::class, 'deleteRestaurant']);
 });
 
 /**
