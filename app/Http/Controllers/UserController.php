@@ -23,15 +23,14 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Get(
-     * path="/api/users",
-     * summary="Get a list of users",
-     * tags={"Users"},
-     * @OA\Response(
-     * response=200,
-     * description="List of users",
-     * ),
-     * )
+     *  @OA\Get(
+     *      path="/api/users",
+     *      summary="Get a list of users",
+     *      tags={"Users"},
+     *      @OA\Response(response=200, description="List of users"),
+     *  )
+     *
+     * @return JsonResponse
      */
     public function getUsers(): JsonResponse
     {
@@ -42,8 +41,53 @@ class UserController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/users/{id}",
+     *     operationId="getUserByID",
+     *     tags={"Users"},
+     *     summary="Get a specific user",
+     *     description="Returns user data",
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="User's id",
+     *         required=true,
+     *         in="path"
+     *     ),
+     *     @OA\Response(
+     *           response=200,
+     *           description="Successful operation",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="id",
+     *                   type="integer",
+     *                   example=1
+     *               ),
+     *               @OA\Property(
+     *                   property="name",
+     *                   type="string",
+     *                   example="Tom Cruise"
+     *               ),
+     *               @OA\Property(
+     *                   property="email",
+     *                   type="string",
+     *                   example="tom@gmail.com"
+     *               )
+     *           )
+     *       ),
+     *       @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *       ),
+     *       @OA\Response(
+     *           response=500,
+     *           description="Internal server error"
+     *       )
+     * )
+     *
      * @param User $user
      * @return JsonResponse
+     *
      */
     public function getUser(User $user): JsonResponse
     {
@@ -52,9 +96,80 @@ class UserController extends Controller
         return new JsonResponse($user, Response::HTTP_OK);
     }
 
+
     /**
+     * @OA\Post(
+     *     path="/api/users",
+     *     operationId="createUser",
+     *     tags={"Users"},
+     *     summary="Create new User",
+     *     description="Returns user data",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 example="Tom Cruise"
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 example="tom@gmail.com"
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 example="password"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  example="Tom Cruise"
+     *              ),
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  example="tom@gmail.com"
+     *              ),
+     *              @OA\Property(
+     *                  property="updated_at",
+     *                  type="string",
+     *                  example="tom@2024-08-21T12:42:33.000000Z.com"
+     *              ),
+     *              @OA\Property(
+     *                   property="created_at",
+     *                   type="string",
+     *                   example="tom@2024-08-21T12:42:33.000000Z.com"
+     *               ),
+     *              @OA\Property(
+     *                  property="id",
+     *                  type="integer",
+     *                  example=1
+     *              )
+     *
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
      * @param UserCreateRequest $userCreateRequest
      * @return JsonResponse
+     *
      */
     public function createUser(UserCreateRequest $userCreateRequest): JsonResponse
     {

@@ -16,6 +16,488 @@
                 }
             }
         },
+        "/api/dishes": {
+            "get": {
+                "tags": [
+                    "Dishes"
+                ],
+                "summary": "Get a list of dihes",
+                "operationId": "a3afb7523a60be3d3607f478f6fce930",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Dishes"
+                ],
+                "summary": "Create new Dishes",
+                "description": "Returns dishes data",
+                "operationId": "createDishes",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Dumpling Craft"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
+                                    },
+                                    "recipe": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "qty": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "example": [
+                                            {
+                                                "id": 1,
+                                                "qty": 5
+                                            },
+                                            {
+                                                "id": 2,
+                                                "qty": 3
+                                            }
+                                        ]
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 100
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Dumpling Craft"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "example": 100
+                                        },
+                                        "recipe": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "qty": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "qty": 5
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "qty": 3
+                                                }
+                                            ]
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2024-08-21T13:40:26.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2024-08-21T13:40:26.000000Z"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/dishes/{id}": {
+            "get": {
+                "tags": [
+                    "Dishes"
+                ],
+                "summary": "Get a specific dishes",
+                "description": "Returns dishes data",
+                "operationId": "getDishesByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Dishes's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "": {
+                                            "title": "title",
+                                            "type": "string",
+                                            "example": "Borsch"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Very tasty"
+                                        },
+                                        "price": {
+                                            "type": "string",
+                                            "example": "100"
+                                        },
+                                        "recipe": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "qty": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "qty": 5
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "qty": 3
+                                                }
+                                            ]
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2024-08-15T08:55:40.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2024-08-15T08:55:40.000000Z"
+                                        },
+                                        "order_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/dishes/update/{id}": {
+            "patch": {
+                "tags": [
+                    "Dishes"
+                ],
+                "summary": "Update the Dishes",
+                "description": "Returns dishes data",
+                "operationId": "updateDishes",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Dumpling Craft"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
+                                    },
+                                    "recipe": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "qty": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "example": [
+                                            {
+                                                "id": 1,
+                                                "qty": 5
+                                            },
+                                            {
+                                                "id": 2,
+                                                "qty": 3
+                                            }
+                                        ]
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 100
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Dumpling Craft"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "example": 100
+                                        },
+                                        "recipe": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "qty": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "qty": 5
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "qty": 3
+                                                }
+                                            ]
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2024-08-21T13:40:26.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2024-08-21T13:40:26.000000Z"
+                                        },
+                                        "order_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/dishes/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Dishes"
+                ],
+                "summary": "Delete the Dishes",
+                "description": "Returns response",
+                "operationId": "deleteDishes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Dishes's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dish was removed"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/dishes/addDishToOrder/{id}": {
+            "post": {
+                "tags": [
+                    "Dishes"
+                ],
+                "summary": "add dishes to order",
+                "description": "Returns dishes data",
+                "operationId": "addDishToOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Dumpling Craft"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 100
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "example": "Dumpling Craft"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "example": 100
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2024-08-21T13:40:26.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2024-08-21T13:40:26.000000Z"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 22
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -28,10 +510,136 @@
                         "description": "List of users"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create new User",
+                "description": "Returns user data",
+                "operationId": "createUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Tom Cruise"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "tom@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Tom Cruise"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "tom@gmail.com"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "tom@2024-08-21T12:42:33.000000Z.com"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "tom@2024-08-21T12:42:33.000000Z.com"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get a specific user",
+                "description": "Returns user data",
+                "operationId": "getUserByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Tom Cruise"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "tom@gmail.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
             }
         }
     },
     "tags": [
+        {
+            "name": "Dishes",
+            "description": "Dishes"
+        },
         {
             "name": "Users",
             "description": "Users"
