@@ -22,7 +22,9 @@ class ProductController extends Controller
      */
     public function getProducts(): JsonResponse
     {
-        $orders = $this->productService->getAllProducts();
+        $queryParams = request()->query();
+        $orders = $this->productService->getAllProducts($queryParams);
+
         return new JsonResponse($orders, Response::HTTP_OK);
     }
 

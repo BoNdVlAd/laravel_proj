@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\PagintaionHelper;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -10,9 +11,26 @@ class ProductService
     /**
      * @return Collection
      */
-    public function getAllProducts(): Collection
+    public function getAllProducts($queryParams): Collection
     {
-        return Product::all();
+        $query = Product::query();
+
+        if (isset($queryParams['title'])) {
+            $query->where('title', 'LIKE', "%{$queryParams['title']}%");
+        }
+
+        if (isset($queryParams['weight'])) {
+            $query->where('weight', 'LIKE', "%{$queryParams['weight']}%");
+        }
+
+        $products = $query->get();
+
+        $showPerPage = $queryParams['perPage'] ?? 10;
+
+        $paginated = PagintaionHelper::paginate($products, $showPerPage, $queryParams);
+
+        return $paginated;
+
     }
 
     /**

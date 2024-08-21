@@ -5,16 +5,26 @@ namespace App\Services;
 use App\Helpers\PagintaionHelper;
 use App\Models\Dishes;
 use App\Models\Order;
-use Illuminate\Database\Eloquent\Collection;
 
 class OrderService
 {
     /**
-     * @return Collection
+     * @param $queryParams
+     * @return array
      */
     public function getAllOrders($queryParams): array
     {
-        $orders =  Order::all();
+        $query =  Order::query();
+
+        if (isset($queryParams['id'])) {
+            $query->where('id', 'LIKE', "%{$queryParams['id']}%");
+        }
+
+        if (isset($queryParams['payment_method'])) {
+            $query->where('payment_method', 'LIKE', "%{$queryParams['payment_method']}%");
+        }
+
+        $orders = $query->get();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 

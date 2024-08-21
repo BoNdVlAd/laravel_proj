@@ -3,22 +3,23 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * @return void
      */
-    public function register(): void
+    public function boot()
     {
-        //
-    }
+        Builder::macro('whereLike', function ($attributes, string $searchTerm) {
+            $this->where(function ($query) use ($attributes, $searchTerm) {
+                foreach ((array) $attributes as $attribute) {
+                    $query->orWhere($attribute, 'LIKE', "%{$searchTerm}%");
+                }
+            });
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
+            return $this;
+        });
     }
 }
