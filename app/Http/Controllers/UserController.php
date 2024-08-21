@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
+
 class UserController extends Controller
 {
     public function __construct(
@@ -22,7 +23,15 @@ class UserController extends Controller
     }
 
     /**
-     * @return JsonResponse
+     * @OA\Get(
+     * path="/api/users",
+     * summary="Get a list of users",
+     * tags={"Users"},
+     * @OA\Response(
+     * response=200,
+     * description="List of users",
+     * ),
+     * )
      */
     public function getUsers(): JsonResponse
     {

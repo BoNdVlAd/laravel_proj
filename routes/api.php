@@ -140,14 +140,3 @@ Route::post('/payment/{order}', [StripePaymentController::class, 'stripePost']);
 Route::post('/reset/password/email', [ProfileController::class, 'sendResetLinkEmail']);
 Route::post('/reset/password', [ProfileController::class, 'resetPassword']);
 
-/**
- * Handle wrong sub url
- */
-Route::any('{url?}/{sub_url?}', function() {
-    return new JsonResponse([
-        "message" => "Page not found"
-    ], 200);
-});
-
-
-

@@ -17,9 +17,6 @@ class RestaurantController extends Controller
     )
     {}
 
-    /**
-     * @return JsonResponse
-     */
     public function getRestaurants(): JsonResponse
     {
         $queryParams = request()->query();
