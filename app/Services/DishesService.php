@@ -13,7 +13,17 @@ class DishesService
      */
     public function getAllDishes($queryParams): array
     {
-        $dishes = Dishes::all();
+
+        $query = Dishes::query();
+
+        if (isset($queryParams['title'])) {
+            $query->where('title', 'LIKE', "%{$queryParams['title']}%");
+        }
+
+        if (isset($queryParams['description'])) {
+            $query->where('description', 'LIKE', "%{$queryParams['description']}%");
+        }
+        $dishes = $query->get();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 

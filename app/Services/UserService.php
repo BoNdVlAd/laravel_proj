@@ -9,11 +9,22 @@ use App\Models\User;
 class UserService
 {
     /**
+     * @param $queryParams
      * @return array
      */
     public function getAllUsers($queryParams): array
     {
-        $users = User::all();
+        $query = User::query();
+
+        if (isset($queryParams['name'])) {
+            $query->where('name', 'LIKE', "%{$queryParams['name']}%");
+        }
+
+        if (isset($queryParams['email'])) {
+            $query->where('email', 'LIKE', "%{$queryParams['email']}%");
+        }
+
+        $users = $query->get();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 

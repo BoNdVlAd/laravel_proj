@@ -10,11 +10,22 @@ use App\Helpers\PagintaionHelper;
 class RestaurantService
 {
     /**
-     * @return Collection
+     * @param $queryParams
+     * @return array
      */
     public function getAllRestaurants($queryParams): array
     {
-        $restaurants =  Restaurant::all();
+        $query =  Restaurant::query();
+
+        if (isset($queryParams['name'])) {
+            $query->where('name', 'LIKE', "%{$queryParams['name']}%");
+        }
+
+        if (isset($queryParams['country'])) {
+            $query->where('country', 'LIKE', "%{$queryParams['country']}%");
+        }
+
+        $restaurants = $query->get();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 
