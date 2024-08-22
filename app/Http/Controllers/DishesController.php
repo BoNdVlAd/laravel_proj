@@ -26,19 +26,155 @@ class DishesController
      *      path="/api/dishes",
      *      summary="Get a list of dihes",
      *      tags={"Dishes"},
+     *      @OA\Parameter(
+     *           name="page",
+     *           in="query",
+     *           required=false,
+     *           @OA\Schema(
+     *               type="integer",
+     *               example=1
+     *           ),
+     *           description="Page number"
+     *       ),
+     *       @OA\Parameter(
+     *           name="perPage",
+     *           in="query",
+     *           required=false,
+     *           @OA\Schema(
+     *               type="integer",
+     *               example=3
+     *           ),
+     *           description="NUmber of elements on page"
+     *       ),
+     *       @OA\Parameter(
+     *             name="title",
+     *             in="query",
+     *             required=false,
+     *             @OA\Schema(
+     *                 type="string",
+     *                 example="Borsch"
+     *             ),
+     *             description="Filter by title"
+     *         ),
+     *       @OA\Parameter(
+     *           name="description",
+     *           in="query",
+     *           required=false,
+     *           @OA\Schema(
+     *               type="string",
+     *               example="Very tasty"
+     *           ),
+     *           description="Filter by description"
+     *       ),
      *      @OA\Response(
      *           response="200",
      *           description="success",
-     *           @OA\Response(response=200, description="List of dishes"),
-     *       ),
-     *        @OA\Response(
-     *           response=400,
-     *           description="Invalid input"
-     *        ),
-     *        @OA\Response(
-     *            response=500,
-     *            description="Internal server error"
-     *        )
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="id",
+     *                          type="integer",
+     *                          example=1
+     *                      ),
+     *                      @OA\Property(
+     *                          property="title",
+     *                          type="string",
+     *                          example="Borsch"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="description",
+     *                          type="string",
+     *                          example="Very tasty"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="price",
+     *                         type="integer",
+     *                         example="Very tasty"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="recipe",
+     *                          type="array",
+     *                          @OA\Items(
+     *                              type="object",
+     *                              @OA\Property(
+     *                                  property="id",
+     *                                  type="integer",
+     *                                  example=1
+     *                              ),
+     *                              @OA\Property(
+     *                                  property="qty",
+     *                                  type="integer",
+     *                                  example=5
+     *                              )
+     *                          ),
+     *                          example={{"id": 1, "qty": 5}, {"id": 2, "qty": 3}}
+     *                      ),
+     *                      @OA\Property(
+     *                          property="created_at",
+     *                          type="string",
+     *                          example="2024-08-15T08:55:40.000000Z"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="updated_at",
+     *                          type="string",
+     *                          example="2024-08-15T08:55:40.000000Z"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="order_id",
+     *                          type="integer",
+     *                          example=1
+     *                      ),
+     *                  )
+     *               ),
+     *               @OA\Property(
+     *                  property="pagintaion",
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="total",
+     *                      type="integer",
+     *                      example=23
+     *                  ),
+     *                  @OA\Property(
+     *                       property="perPage",
+     *                       type="integer",
+     *                       example=10
+     *                  ),
+     *                  @OA\Property(
+     *                       property="currentPage",
+     *                       type="integer",
+     *                       example=1
+     *                  ),
+     *                  @OA\Property(
+     *                       property="lastPage",
+     *                       type="integer",
+     *                       example=3
+     *                   ),
+     *                   @OA\Property(
+     *                        property="from",
+     *                        type="integer",
+     *                        example=1
+     *                   ),
+     *                   @OA\Property(
+     *                        property="to",
+     *                        type="integer",
+     *                        example=10
+     *                   ),
+     *               ),
+     *           )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
      *  )
      *
      * @return JsonResponse
@@ -536,7 +672,6 @@ class DishesController
         return new JsonResponse($dish, Response::HTTP_OK);
     }
 
-
     /**
      * @OA\Post(
      *     path="/api/media/dishes/{id}",
@@ -589,8 +724,80 @@ class DishesController
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/media/dishes/{id}",
+     *     operationId="getMediaForDishes",
+     *     tags={"Dishes"},
+     *     summary="Get media from specific dishes",
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="Dishes's id",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *           response=200,
+     *           description="Successful operation",
+     *           @OA\JsonContent(
+     *               type="array",
+     *               @OA\Items(
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="id",
+     *                      type="integer",
+     *                      example=22
+     *                  ),
+     *                  @OA\Property(
+     *                       property="gallery_id",
+     *                       type="integer",
+     *                       example=4
+     *                  ),
+     *                  @OA\Property(
+     *                        property="filename",
+     *                        type="string",
+     *                        example="Screenshot from 2024-08-14 16-17-34.png"
+     *                  ),
+     *                  @OA\Property(
+     *                         property="mime_type",
+     *                         type="string",
+     *                         example="image/png"
+     *                  ),
+     *                  @OA\Property(
+     *                          property="size",
+     *                          type="integer",
+     *                          example=23423
+     *                  ),
+     *                  @OA\Property(
+     *                          property="url",
+     *                          type="string",
+     *                          example="/storage/uploads/RJaDG2plFAlZM4KOYvEdLrsrVCrmfoIGYWf64sLG.png"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="created_at",
+     *                      type="string",
+     *                      example="2024-08-21T13:40:26.000000Z"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="updated_at",
+     *                      type="string",
+     *                      example="2024-08-21T13:40:26.000000Z"
+     *                  ),
+     *               )
+     *           )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *     )
+     * )
      * @param Dishes $model
      * @return JsonResponse
+     *
      */
     public function getMedia(Dishes $model): JsonResponse
     {

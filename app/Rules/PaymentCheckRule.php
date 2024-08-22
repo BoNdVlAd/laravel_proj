@@ -17,7 +17,7 @@ class PaymentCheckRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $order = request()->order;
-        $paymentAmount = request()->amount;
+        $paymentAmount = request()->total_price;
 
         if ($order->status == 1) {
             $fail('message','the order has already been paid for');

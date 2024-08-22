@@ -12,8 +12,8 @@ class UserUpdateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'name' => 'required|string|max:255|unique:users,name,'.$this->user->id,
+            'email' => 'required|email|unique:users,email,'.$this->user->id,
             'password' => 'required|string|min:8',
         ];
     }

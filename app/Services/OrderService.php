@@ -50,10 +50,10 @@ class OrderService
     {
         $order = new Order();
 
-        $order->payment_method = $data['payment_method'] ?? null;
+        $order->user_id = auth()->id();
         $order->status = $data['status'] ?? null;
         $order->total_price = $data['total_price'] ?? 0;
-        $order->user_id = auth()->id();
+        $order->payment_method = $data['payment_method'] ?? null;
 
         $order->save();
 

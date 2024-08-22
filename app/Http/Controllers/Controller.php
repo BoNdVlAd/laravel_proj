@@ -8,11 +8,6 @@ namespace App\Http\Controllers;
  *      title="First_proj",
  *  )
  *
- *  @OA\Get(
- *      path="/",
- *      description="Home page",
- *      @OA\Response(response="default", description="Welcome page")
- * )
  */
 abstract class Controller
 {

@@ -26,10 +26,7 @@ Route::prefix('users')->group(function() {
     Route::patch('/update/{user}', [UserController::class, 'updateUser']);
     Route::delete('/delete/{user}', [UserController::class, 'deleteUser']);
 
-    Route::get('/manager/{user}', [UserController::class, 'checkManager'])->middleware(UserRoleMiddleware::class);;
-    Route::get('/waiter/{user}', [UserController::class, 'checkWaiter'])->middleware(UserRoleMiddleware::class);
-    Route::get('/chef/{user}', [UserController::class, 'checkChef'])->middleware(UserRoleMiddleware::class);
-    Route::get('/customer/{user}', [UserController::class, 'checkCustomer'])->middleware(UserRoleMiddleware::class);
+    Route::get('/check_role/{user}', [UserController::class, 'checkRole']);
 
     Route::patch('/role_manager', [UserController::class, 'editRoleToManager']);
     Route::patch('/role_waiter', [UserController::class, 'editRoleToWaiter']);
