@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Helpers\PagintaionHelper;
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Collection;
 
 class ProductService
 {
     /**
-     * @return Collection
+     * @param $queryParams
+     * @return array
      */
-    public function getAllProducts($queryParams): Collection
+    public function getAllProducts($queryParams): array
     {
         $query = Product::query();
 

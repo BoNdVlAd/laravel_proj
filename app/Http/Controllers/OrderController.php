@@ -260,7 +260,7 @@ class OrderController extends Controller
      *                  example=1000
      *             ),
      *             @OA\Property(
-     *                   property="orders",
+     *                   property="dishes",
      *                   type="array",
      *                   @OA\Items(
      *                       type="object",
@@ -288,93 +288,7 @@ class OrderController extends Controller
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="user_id",
-     *                  type="integer",
-     *                  example=3
-     *              ),
-     *              @OA\Property(
-     *                  property="status",
-     *                  type="boolean",
-     *                  example=false
-     *              ),
-     *              @OA\Property(
-     *                   property="total_price",
-     *                   type="integer",
-     *                   example=600
-     *              ),
-     *              @OA\Property(
-     *                    property="payment_method",
-     *                    type="string",
-     *                    example="cash"
-     *               ),
-     *               @OA\Property(
-     *                     property="updated_at",
-     *                     type="string",
-     *                     example="2024-08-21T13:40:26.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                     property="created_at",
-     *                     type="string",
-     *                     example="2024-08-21T13:40:26.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                   property="id",
-     *                   type="integer",
-     *                   example=36
-     *               ),
-     *              @OA\Property(
-     *                    property="dishes",
-     *                    type="array",
-     *                    @OA\Items(
-     *                        type="object",
-     *                        @OA\Property(
-     *                            property="id",
-     *                            type="integer",
-     *                            example=1
-     *                        ),
-     *                        @OA\Property(
-     *                            property="title",
-     *                            type="string",
-     *                            example="Borsch"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="description",
-     *                             type="string",
-     *                             example="Very tasty"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="price",
-     *                             type="integer",
-     *                             example=100
-     *                        ),
-     *                        @OA\Property(
-     *                             property="updated_at",
-     *                             type="string",
-     *                             example="2024-08-21T13:40:26.000000Z"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="created_at",
-     *                             type="string",
-     *                             example="2024-08-21T13:40:26.000000Z"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="order_id",
-     *                             type="integer",
-     *                             example=1
-     *                         ),
-     *                    ),
-     *                    example={
-     * "id": 1,
-     * "title": "Borsch",
-     * "description": "Very tasty",
-     * "price": 100,
-     * "created_at": "2024-08-15T07:02:21.000000Z",
-     * "updated_at": "2024-08-15T07:02:21.000000Z",
-     * "order_id": 1,
-     * },
-     *              ),
+     *              ref="#/components/schemas/Order"
      *          )
      *      ),
      *     @OA\Response(
@@ -397,8 +311,6 @@ class OrderController extends Controller
 
         $data = $orderCreateRequest->getContent();
         $content = json_decode($data, true);
-
-
 
         $order = $this->orderService->createOrder($content);
 
@@ -461,93 +373,7 @@ class OrderController extends Controller
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="user_id",
-     *                  type="integer",
-     *                  example=3
-     *              ),
-     *              @OA\Property(
-     *                  property="status",
-     *                  type="boolean",
-     *                  example=false
-     *              ),
-     *              @OA\Property(
-     *                   property="total_price",
-     *                   type="integer",
-     *                   example=600
-     *              ),
-     *              @OA\Property(
-     *                    property="payment_method",
-     *                    type="string",
-     *                    example="cash"
-     *               ),
-     *               @OA\Property(
-     *                     property="updated_at",
-     *                     type="string",
-     *                     example="2024-08-21T13:40:26.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                     property="created_at",
-     *                     type="string",
-     *                     example="2024-08-21T13:40:26.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                   property="id",
-     *                   type="integer",
-     *                   example=36
-     *               ),
-     *              @OA\Property(
-     *                    property="dishes",
-     *                    type="array",
-     *                    @OA\Items(
-     *                        type="object",
-     *                        @OA\Property(
-     *                            property="id",
-     *                            type="integer",
-     *                            example=1
-     *                        ),
-     *                        @OA\Property(
-     *                            property="title",
-     *                            type="string",
-     *                            example="Borsch"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="description",
-     *                             type="string",
-     *                             example="Very tasty"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="price",
-     *                             type="integer",
-     *                             example=100
-     *                        ),
-     *                        @OA\Property(
-     *                             property="updated_at",
-     *                             type="string",
-     *                             example="2024-08-21T13:40:26.000000Z"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="created_at",
-     *                             type="string",
-     *                             example="2024-08-21T13:40:26.000000Z"
-     *                        ),
-     *                        @OA\Property(
-     *                             property="order_id",
-     *                             type="integer",
-     *                             example=1
-     *                         ),
-     *                    ),
-     *                    example={
-     * "id": 1,
-     * "title": "Borsch",
-     * "description": "Very tasty",
-     * "price": 100,
-     * "created_at": "2024-08-15T07:02:21.000000Z",
-     * "updated_at": "2024-08-15T07:02:21.000000Z",
-     * "order_id": 1,
-     * },
-     *              ),
+     *              ref="#/components/schemas/Order"
      *          )
      *      ),
      *     @OA\Response(

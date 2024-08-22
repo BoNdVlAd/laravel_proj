@@ -1196,7 +1196,7 @@
                                         "type": "boolean",
                                         "example": 1000
                                     },
-                                    "orders": {
+                                    "dishes": {
                                         "type": "array",
                                         "items": {
                                             "properties": {
@@ -1238,82 +1238,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "user_id": {
-                                            "type": "integer",
-                                            "example": 3
-                                        },
-                                        "status": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "total_price": {
-                                            "type": "integer",
-                                            "example": 600
-                                        },
-                                        "payment_method": {
-                                            "type": "string",
-                                            "example": "cash"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 36
-                                        },
-                                        "dishes": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "Borsch"
-                                                    },
-                                                    "description": {
-                                                        "type": "string",
-                                                        "example": "Very tasty"
-                                                    },
-                                                    "price": {
-                                                        "type": "integer",
-                                                        "example": 100
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-21T13:40:26.000000Z"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-21T13:40:26.000000Z"
-                                                    },
-                                                    "order_id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "example": {
-                                                "id": 1,
-                                                "title": "Borsch",
-                                                "description": "Very tasty",
-                                                "price": 100,
-                                                "created_at": "2024-08-15T07:02:21.000000Z",
-                                                "updated_at": "2024-08-15T07:02:21.000000Z",
-                                                "order_id": 1
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Order"
                                 }
                             }
                         }
@@ -1453,82 +1378,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "user_id": {
-                                            "type": "integer",
-                                            "example": 3
-                                        },
-                                        "status": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "total_price": {
-                                            "type": "integer",
-                                            "example": 600
-                                        },
-                                        "payment_method": {
-                                            "type": "string",
-                                            "example": "cash"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 36
-                                        },
-                                        "dishes": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "Borsch"
-                                                    },
-                                                    "description": {
-                                                        "type": "string",
-                                                        "example": "Very tasty"
-                                                    },
-                                                    "price": {
-                                                        "type": "integer",
-                                                        "example": 100
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-21T13:40:26.000000Z"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-21T13:40:26.000000Z"
-                                                    },
-                                                    "order_id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "example": {
-                                                "id": 1,
-                                                "title": "Borsch",
-                                                "description": "Very tasty",
-                                                "price": 100,
-                                                "created_at": "2024-08-15T07:02:21.000000Z",
-                                                "updated_at": "2024-08-15T07:02:21.000000Z",
-                                                "order_id": 1
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Order"
                                 }
                             }
                         }
@@ -1561,6 +1411,402 @@
                 "responses": {
                     "200": {
                         "description": "Order was removed"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get a list of products",
+                "operationId": "9825833dfca153a232f3076fa4540b35",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "NUmber of elements on page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Filter by title",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "carrot"
+                        }
+                    },
+                    {
+                        "name": "weight",
+                        "in": "query",
+                        "description": "Filter by weight",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Product"
+                                            }
+                                        },
+                                        "pagintaion": {
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 23
+                                                },
+                                                "perPage": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "currentPage": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "lastPage": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Create new Product",
+                "description": "Returns priduct data",
+                "operationId": "createProduct",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "carrot"
+                                    },
+                                    "weight": {
+                                        "type": "string",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "get a specific product",
+                "operationId": "09264849abe3f8cbc5f1249695793bb4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/products/update/{id}": {
+            "patch": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update the Product",
+                "description": "Returns product data",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Dishes's id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "carrot"
+                                    },
+                                    "weight": {
+                                        "type": "string",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/products/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete the Product",
+                "description": "Returns response",
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product was removed"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/auth/change_password": {
+            "patch": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "change password",
+                "operationId": "dba572341c6ac6722567547c3b41feb0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "some_password"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password has been changed"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/reset/password/email": {
+            "patch": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "send email with a link for reseting password",
+                "operationId": "8babd0a841919f1f00adcd64db9d24dc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "Tom@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "We have emailed your password reset link."
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/reset/password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "change password",
+                "operationId": "8ecefd8aa9595cf58f99c090007eeb41",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "5ad66c49f77e76915da6ac9740e7e3dd580b3efec295e7472fe3ce0f468ec722"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "Tom@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Your password has been reset."
                     },
                     "400": {
                         "description": "Invalid input"
@@ -2081,29 +2327,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Tom"
-                                                    },
-                                                    "email": {
-                                                        "type": "string",
-                                                        "example": "Tom@gmail.com"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    }
-                                                },
-                                                "type": "object"
+                                                "$ref": "#/components/schemas/User"
                                             }
                                         },
                                         "pagintaion": {
@@ -2748,6 +2972,104 @@
                     }
                 },
                 "type": "object"
+            },
+            "Order": {
+                "title": "Order",
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "status": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "total_price": {
+                        "type": "integer",
+                        "example": 600
+                    },
+                    "payment_method": {
+                        "type": "string",
+                        "example": "cash"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-08-21T13:40:26.000000Z"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-08-21T13:40:26.000000Z"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "example": 36
+                    },
+                    "dishes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Dishes"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Product": {
+                "title": "Product",
+                "properties": {
+                    "id": {
+                        "description": "Product ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "description": "title of product",
+                        "type": "string",
+                        "example": "carrot"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-08-15T08:55:40.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-08-15T08:55:40.000000Z"
+                    },
+                    "weight": {
+                        "type": "integer",
+                        "example": 2
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Tom"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "Tom@gmail.com"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-08-15T08:55:40.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-08-15T08:55:40.000000Z"
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
@@ -2775,6 +3097,10 @@
         {
             "name": "Orders",
             "description": "Orders"
+        },
+        {
+            "name": "Products",
+            "description": "Products"
         },
         {
             "name": "Restaurants",

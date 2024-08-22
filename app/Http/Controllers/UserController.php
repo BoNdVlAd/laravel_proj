@@ -76,32 +76,7 @@ class UserController extends Controller
      *                  property="data",
      *                  type="array",
      *                  @OA\Items(
-     *                      type="object",
-     *                      @OA\Property(
-     *                          property="id",
-     *                          type="integer",
-     *                          example=1
-     *                      ),
-     *                      @OA\Property(
-     *                          property="name",
-     *                          type="string",
-     *                          example="Tom"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="email",
-     *                          type="string",
-     *                          example="Tom@gmail.com"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="created_at",
-     *                          type="string",
-     *                          example="2024-08-15T08:55:40.000000Z"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="updated_at",
-     *                          type="string",
-     *                          example="2024-08-15T08:55:40.000000Z"
-     *                      ),
+     *                      ref="#/components/schemas/User"
      *                  )
      *               ),
      *               @OA\Property(
