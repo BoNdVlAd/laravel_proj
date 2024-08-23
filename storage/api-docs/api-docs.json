@@ -748,33 +748,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "title": {
-                                            "type": "string",
-                                            "example": "Dumpling Craft"
-                                        },
-                                        "description": {
-                                            "type": "string",
-                                            "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
-                                        },
-                                        "price": {
-                                            "type": "integer",
-                                            "example": 100
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 22
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Dishes"
                                 }
                             }
                         }
@@ -814,41 +788,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer",
-                                                "example": 22
-                                            },
-                                            "gallery_id": {
-                                                "type": "integer",
-                                                "example": 4
-                                            },
-                                            "filename": {
-                                                "type": "string",
-                                                "example": "Screenshot from 2024-08-14 16-17-34.png"
-                                            },
-                                            "mime_type": {
-                                                "type": "string",
-                                                "example": "image/png"
-                                            },
-                                            "size": {
-                                                "type": "integer",
-                                                "example": 23423
-                                            },
-                                            "url": {
-                                                "type": "string",
-                                                "example": "/storage/uploads/RJaDG2plFAlZM4KOYvEdLrsrVCrmfoIGYWf64sLG.png"
-                                            },
-                                            "created_at": {
-                                                "type": "string",
-                                                "example": "2024-08-21T13:40:26.000000Z"
-                                            },
-                                            "updated_at": {
-                                                "type": "string",
-                                                "example": "2024-08-21T13:40:26.000000Z"
-                                            }
-                                        },
-                                        "type": "object"
+                                        "$ref": "#/components/schemas/Media"
                                     }
                                 }
                             }
@@ -2268,6 +2208,62 @@
                 }
             }
         },
+        "/api/payment/{id}": {
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Payment for order",
+                "description": "Returns payment data",
+                "operationId": "paymentForOrder",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 4242424242424242
+                                    },
+                                    "cvc": {
+                                        "type": "integer",
+                                        "example": 311
+                                    },
+                                    "amount": {
+                                        "type": "integer",
+                                        "example": 600
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "first payment using"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Charge"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -2811,41 +2807,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer",
-                                                "example": 22
-                                            },
-                                            "gallery_id": {
-                                                "type": "integer",
-                                                "example": 4
-                                            },
-                                            "filename": {
-                                                "type": "string",
-                                                "example": "Screenshot from 2024-08-14 16-17-34.png"
-                                            },
-                                            "mime_type": {
-                                                "type": "string",
-                                                "example": "image/png"
-                                            },
-                                            "size": {
-                                                "type": "integer",
-                                                "example": 23423
-                                            },
-                                            "url": {
-                                                "type": "string",
-                                                "example": "/storage/uploads/RJaDG2plFAlZM4KOYvEdLrsrVCrmfoIGYWf64sLG.png"
-                                            },
-                                            "created_at": {
-                                                "type": "string",
-                                                "example": "2024-08-21T13:40:26.000000Z"
-                                            },
-                                            "updated_at": {
-                                                "type": "string",
-                                                "example": "2024-08-21T13:40:26.000000Z"
-                                            }
-                                        },
-                                        "type": "object"
+                                        "$ref": "#/components/schemas/Media"
                                     }
                                 }
                             }
@@ -2973,6 +2935,44 @@
                 },
                 "type": "object"
             },
+            "Media": {
+                "title": "Media",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 22
+                    },
+                    "gallery_id": {
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "filename": {
+                        "type": "string",
+                        "example": "Screenshot from 2024-08-14 16-17-34.png"
+                    },
+                    "mime_type": {
+                        "type": "string",
+                        "example": "image/png"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "example": 23423
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "/storage/uploads/RJaDG2plFAlZM4KOYvEdLrsrVCrmfoIGYWf64sLG.png"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-08-21T13:40:26.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-08-21T13:40:26.000000Z"
+                    }
+                },
+                "type": "object"
+            },
             "Order": {
                 "title": "Order",
                 "properties": {
@@ -3009,6 +3009,413 @@
                         "items": {
                             "$ref": "#/components/schemas/Dishes"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "Charge": {
+                "title": "Charge",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "ch_3PqqvTP8I0NoxkS31D0FtiCs"
+                    },
+                    "object": {
+                        "type": "string",
+                        "example": "charge"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "example": 600
+                    },
+                    "amount_captured": {
+                        "type": "integer",
+                        "example": 600
+                    },
+                    "amount_refunded": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "balance_transaction": {
+                        "type": "string",
+                        "example": "txn_3PqqvTP8I0NoxkS31qf31fF6"
+                    },
+                    "billing_details": {
+                        "properties": {
+                            "address": {
+                                "properties": {
+                                    "city": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "line1": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "line2": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "postal_code": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "calculated_statement_descriptor": {
+                        "type": "string",
+                        "example": "VLADYSLAV BONDARENKO"
+                    },
+                    "captured": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created": {
+                        "type": "integer",
+                        "example": 1724394287
+                    },
+                    "currency": {
+                        "type": "string",
+                        "example": "usd"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "first payment using"
+                    },
+                    "outcome": {
+                        "properties": {
+                            "network_status": {
+                                "type": "string",
+                                "example": "approved_by_network"
+                            },
+                            "risk_level": {
+                                "type": "string",
+                                "example": "normal"
+                            },
+                            "risk_score": {
+                                "type": "integer",
+                                "example": 14
+                            },
+                            "seller_message": {
+                                "type": "string",
+                                "example": "Payment complete."
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "authorized"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "payment_method_details": {
+                        "properties": {
+                            "card": {
+                                "properties": {
+                                    "amount_authorized": {
+                                        "type": "integer",
+                                        "example": 600
+                                    },
+                                    "brand": {
+                                        "type": "string",
+                                        "example": "visa"
+                                    },
+                                    "checks": {
+                                        "properties": {
+                                            "address_line1_check": {
+                                                "type": "string",
+                                                "example": null,
+                                                "nullable": true
+                                            },
+                                            "address_postal_code_check": {
+                                                "type": "string",
+                                                "example": null,
+                                                "nullable": true
+                                            },
+                                            "cvc_check": {
+                                                "type": "string",
+                                                "example": "pass"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "US"
+                                    },
+                                    "exp_month": {
+                                        "type": "integer",
+                                        "example": 8
+                                    },
+                                    "exp_year": {
+                                        "type": "integer",
+                                        "example": 2025
+                                    },
+                                    "extended_authorization": {
+                                        "properties": {
+                                            "status": {
+                                                "type": "string",
+                                                "example": "disabled"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "fingerprint": {
+                                        "type": "string",
+                                        "example": "dzohzE5PNyA8ymkX"
+                                    },
+                                    "funding": {
+                                        "type": "string",
+                                        "example": "credit"
+                                    },
+                                    "incremental_authorization": {
+                                        "properties": {
+                                            "status": {
+                                                "type": "string",
+                                                "example": "unavailable"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "last4": {
+                                        "type": "string",
+                                        "example": "4242"
+                                    },
+                                    "multicapture": {
+                                        "properties": {
+                                            "status": {
+                                                "type": "string",
+                                                "example": "unavailable"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "network": {
+                                        "type": "string",
+                                        "example": "visa"
+                                    },
+                                    "network_token": {
+                                        "properties": {
+                                            "used": {
+                                                "type": "boolean",
+                                                "example": false
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "overcapture": {
+                                        "properties": {
+                                            "maximum_amount_capturable": {
+                                                "type": "integer",
+                                                "example": 600
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "example": "unavailable"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "three_d_secure": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "wallet": {
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "card"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "receipt_url": {
+                        "type": "string",
+                        "example": "https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUG1yUklQOEkwTm94a1MzKK_WoLYGMgaaCbcTT2k6LBaOOTpwai34YEGstJI4QGB6kmzBdASHqijnpzz-Bhk6k2V6rTYsKfhINwrH"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "succeeded"
+                    },
+                    "source": {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "example": "card_1PqqvTP8I0NoxkS3RvT2NS6X"
+                            },
+                            "object": {
+                                "type": "string",
+                                "example": "card"
+                            },
+                            "address_city": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_country": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_line1": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_line1_check": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_line2": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_state": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_zip": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "address_zip_check": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "brand": {
+                                "type": "string",
+                                "example": "Visa"
+                            },
+                            "country": {
+                                "type": "string",
+                                "example": "US"
+                            },
+                            "customer": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "cvc_check": {
+                                "type": "string",
+                                "example": "pass"
+                            },
+                            "dynamic_last4": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "exp_month": {
+                                "type": "integer",
+                                "example": 8
+                            },
+                            "exp_year": {
+                                "type": "integer",
+                                "example": 2025
+                            },
+                            "fingerprint": {
+                                "type": "string",
+                                "example": "dzohzE5PNyA8ymkX"
+                            },
+                            "funding": {
+                                "type": "string",
+                                "example": "credit"
+                            },
+                            "last4": {
+                                "type": "string",
+                                "example": "4242"
+                            },
+                            "metadata": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "tokenization_method": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            },
+                            "wallet": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "source_transfer": {
+                        "type": "string",
+                        "example": null,
+                        "nullable": true
+                    },
+                    "transfer_data": {
+                        "properties": {
+                            "amount": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "destination": {
+                                "type": "string",
+                                "example": null,
+                                "nullable": true
+                            }
+                        },
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "transfer_group": {
+                        "type": "string",
+                        "example": null,
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -3105,6 +3512,10 @@
         {
             "name": "Restaurants",
             "description": "Restaurants"
+        },
+        {
+            "name": "Payment",
+            "description": "Payment"
         },
         {
             "name": "Users",

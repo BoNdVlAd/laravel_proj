@@ -36,7 +36,7 @@ class PaymentService
             $paymentController = new PaymentController();
             $paymentController->changePaymentStatus($order->id);
 
-            return new JsonResponse([$response], 201);
+            return new JsonResponse($response, 201);
         } catch (Exception $e) {
             return new JsonResponse(['message'=>$e], 500);
         }

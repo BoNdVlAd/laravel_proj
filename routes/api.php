@@ -13,7 +13,6 @@ use App\Http\Middleware\UserRoleMiddleware;
 use App\Http\Controllers\OrderController;
 use App\Http\Middleware\ManagerRoleMiddleware;
 use App\Http\Controllers\StripePaymentController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Http\Controllers\ProfileController;
 
 /**
