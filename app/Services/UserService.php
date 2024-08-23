@@ -87,16 +87,22 @@ class UserService
     }
 
     /**
-     * @param $role
+     * @param $user
      * @return string
      */
-    public function checkRole($role): string
+    public function checkRole($user): string
     {
-        $user = auth()->user();
-        if($user->hasRole($role)) {
-            return 'true';
+        if($user->hasRole('customer')){
+            return 'User role is customer';
+        } else if($user->hasRole('waiter')) {
+            return 'User role is waiter';
+        } else if($user->hasRole('chef')) {
+            return 'User role is chef';
+        } else if($user->hasRole('manager')) {
+            return 'User role is manager';
+        } else {
+            abort(403);
         }
-        return 'false';
     }
 
 

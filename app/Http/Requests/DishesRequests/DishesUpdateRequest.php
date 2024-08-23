@@ -12,7 +12,7 @@ class DishesUpdateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255|unique:dishes',
+            'title' => 'required|string|max:255|unique:dishes,title,'.$this->dishes->id,
             'price' => 'required',
             'description' => 'required|string|max:255',
         ];

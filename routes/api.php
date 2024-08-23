@@ -13,7 +13,6 @@ use App\Http\Middleware\UserRoleMiddleware;
 use App\Http\Controllers\OrderController;
 use App\Http\Middleware\ManagerRoleMiddleware;
 use App\Http\Controllers\StripePaymentController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Http\Controllers\ProfileController;
 
 /**
@@ -26,10 +25,7 @@ Route::prefix('users')->group(function() {
     Route::patch('/update/{user}', [UserController::class, 'updateUser']);
     Route::delete('/delete/{user}', [UserController::class, 'deleteUser']);
 
-    Route::get('/manager/{user}', [UserController::class, 'checkManager'])->middleware(UserRoleMiddleware::class);;
-    Route::get('/waiter/{user}', [UserController::class, 'checkWaiter'])->middleware(UserRoleMiddleware::class);
-    Route::get('/chef/{user}', [UserController::class, 'checkChef'])->middleware(UserRoleMiddleware::class);
-    Route::get('/customer/{user}', [UserController::class, 'checkCustomer'])->middleware(UserRoleMiddleware::class);
+    Route::get('/check_role/{user}', [UserController::class, 'checkRole']);
 
     Route::patch('/role_manager', [UserController::class, 'editRoleToManager']);
     Route::patch('/role_waiter', [UserController::class, 'editRoleToWaiter']);
@@ -85,6 +81,7 @@ Route::prefix('products')->group(function() {
     Route::get('/{product}', [ProductController::class, 'getProduct']);
     Route::post('', [ProductController::class, 'createProduct']);
     Route::patch('/update/{product}', [ProductController::class, 'updateProduct']);
+    Route::delete('/delete/{product}', [ProductController::class, 'deleteProduct']);
 });
 
 /**
@@ -139,15 +136,4 @@ Route::post('/payment/{order}', [StripePaymentController::class, 'stripePost']);
  */
 Route::post('/reset/password/email', [ProfileController::class, 'sendResetLinkEmail']);
 Route::post('/reset/password', [ProfileController::class, 'resetPassword']);
-
-/**
- * Handle wrong sub url
- */
-Route::any('{url?}/{sub_url?}', function() {
-    return new JsonResponse([
-        "message" => "Page not found"
-    ], 200);
-});
-
-
 

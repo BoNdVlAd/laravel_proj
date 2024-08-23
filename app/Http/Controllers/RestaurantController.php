@@ -18,6 +18,145 @@ class RestaurantController extends Controller
     {}
 
     /**
+     *  @OA\Get(
+     *      path="/api/restaurants",
+     *      summary="Get a list of restaurants",
+     *      tags={"Restaurants"},
+     *     @OA\Parameter(
+     *            name="page",
+     *            in="query",
+     *            required=false,
+     *            @OA\Schema(
+     *                type="integer",
+     *                example=1
+     *            ),
+     *            description="Page number"
+     *        ),
+     *        @OA\Parameter(
+     *            name="perPage",
+     *            in="query",
+     *            required=false,
+     *            @OA\Schema(
+     *                type="integer",
+     *                example=3
+     *            ),
+     *            description="NUmber of elements on page"
+     *        ),
+     *        @OA\Parameter(
+     *              name="name",
+     *              in="query",
+     *              required=false,
+     *              @OA\Schema(
+     *                  type="string",
+     *                  example="Asador Etxebarri"
+     *              ),
+     *              description="Filter by name"
+     *          ),
+     *        @OA\Parameter(
+     *            name="country",
+     *            in="query",
+     *            required=false,
+     *            @OA\Schema(
+     *                type="string",
+     *                example="France"
+     *            ),
+     *            description="Filter by country"
+     *        ),
+     *      @OA\Response(
+     *           response="200",
+     *           description="success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="id",
+     *                          type="integer",
+     *                          example=1
+     *                      ),
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string",
+     *                          example="Asador Etxebarri"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="country",
+     *                          type="string",
+     *                          example="France"
+     *                      ),
+     *                      @OA\Property(
+     *                           property="latitude",
+     *                           type="number",
+     *                           format="float",
+     *                           example=50.42297
+     *                      ),
+     *                      @OA\Property(
+     *                           property="longitude",
+     *                           type="number",
+     *                           format="float",
+     *                           example=30.24416
+     *                      ),
+     *                      @OA\Property(
+     *                          property="created_at",
+     *                          type="string",
+     *                          example="2024-08-15T08:55:40.000000Z"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="updated_at",
+     *                          type="string",
+     *                          example="2024-08-15T08:55:40.000000Z"
+     *                      ),
+     *                  )
+     *               ),
+     *               @OA\Property(
+     *                  property="pagintaion",
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="total",
+     *                      type="integer",
+     *                      example=23
+     *                  ),
+     *                  @OA\Property(
+     *                       property="perPage",
+     *                       type="integer",
+     *                       example=10
+     *                  ),
+     *                  @OA\Property(
+     *                       property="currentPage",
+     *                       type="integer",
+     *                       example=1
+     *                  ),
+     *                  @OA\Property(
+     *                       property="lastPage",
+     *                       type="integer",
+     *                       example=3
+     *                   ),
+     *                   @OA\Property(
+     *                        property="from",
+     *                        type="integer",
+     *                        example=1
+     *                   ),
+     *                   @OA\Property(
+     *                        property="to",
+     *                        type="integer",
+     *                        example=10
+     *                   ),
+     *               ),
+     *           )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
      * @return JsonResponse
      */
     public function getRestaurants(): JsonResponse
@@ -29,8 +168,98 @@ class RestaurantController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     path="/api/restaurants",
+     *     operationId="createRestaurant",
+     *     tags={"Restaurants"},
+     *     summary="Create new Restaurant",
+     *     description="Returns Restaurant data",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 example="Diverxo"
+     *             ),
+     *             @OA\Property(
+     *                 property="country",
+     *                 type="string",
+     *                 example="France"
+     *             ),
+     *             @OA\Property(
+     *                  property="latitude",
+     *                  type="number",
+     *                  format="float",
+     *                  example=50.59067
+     *             ),
+     *             @OA\Property(
+     *                  property="longitude",
+     *                  type="number",
+     *                  format="float",
+     *                  example=30.71773
+     *             ),
+
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  example="Diverxo"
+     *              ),
+     *              @OA\Property(
+     *                  property="country",
+     *                  type="string",
+     *                  example="France"
+     *              ),
+     *              @OA\Property(
+     *                   property="latitude",
+     *                   type="number",
+     *                   format="float",
+     *                   example=50.59067
+     *              ),
+     *              @OA\Property(
+     *                   property="longitude",
+     *                   type="number",
+     *                   format="float",
+     *                   example=30.71773
+     *              ),
+     *              @OA\Property(
+     *                     property="updated_at",
+     *                     type="string",
+     *                     example="2024-08-21T13:40:26.000000Z"
+     *               ),
+     *               @OA\Property(
+     *                     property="created_at",
+     *                     type="string",
+     *                     example="2024-08-21T13:40:26.000000Z"
+     *               ),
+     *               @OA\Property(
+     *                     property="id",
+     *                     type="integer",
+     *                     example=22
+     *               )
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
      * @param RestaurantCreateRequest $restaurantCreateRequest
      * @return JsonResponse
+     *
      */
     public function createRestaurant(RestaurantCreateRequest $restaurantCreateRequest): JsonResponse
     {
@@ -41,8 +270,104 @@ class RestaurantController extends Controller
     }
 
     /**
-     * @param RestaurantGetTheNearestRequest $request
+     * @OA\Get(
+     *     path="/api/restaurants/nearestRestaurant",
+     *     operationId="getTheNearestRestaurant",
+     *     tags={"Restaurants"},
+     *     summary="Get the nearest Restaurant",
+     *     description="Returns Restaurant data, distance, country",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="latitude",
+     *                  type="number",
+     *                  format="float",
+     *                  example=50.59067
+     *             ),
+     *             @OA\Property(
+     *                  property="longitude",
+     *                  type="number",
+     *                  format="float",
+     *                  example=30.71773
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="restaurant",
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="id",
+     *                      type="integer",
+     *                      example=1
+     *                  ),
+     *                  @OA\Property(
+     *                      property="name",
+     *                      type="string",
+     *                      example="Asador Etxebarri"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="country",
+     *                      type="string",
+     *                      example="France"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="latitude",
+     *                      type="number",
+     *                      format="float",
+     *                      example=50.42297
+     *                  ),
+     *                  @OA\Property(
+     *                      property="longitude",
+     *                      type="number",
+     *                      format="float",
+     *                      example=30.24416
+     *                  ),
+     *                  @OA\Property(
+     *                      property="created_at",
+     *                      type="string",
+     *                      format="date-time",
+     *                      example="2024-08-16T08:30:15.000000Z"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="updated_at",
+     *                      type="string",
+     *                      format="date-time",
+     *                      example="2024-08-16T08:30:15.000000Z"
+     *                  )
+     *              ),
+     *              @OA\Property(
+     *                  property="distance",
+     *                  type="number",
+     *                  format="float",
+     *                  example=20.328845035909904
+     *              ),
+     *              @OA\Property(
+     *                  property="country",
+     *                  type="string",
+     *                  example="France"
+     *              )
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
+     * @param RestaurantCreateRequest $restaurantCreateRequest
      * @return JsonResponse
+     *
      */
     public function getNearestRestaurant(RestaurantGetTheNearestRequest $request): JsonResponse
     {
@@ -53,8 +378,103 @@ class RestaurantController extends Controller
     }
 
     /**
-     * @param Restaurant $restaurant
+     * @OA\Patch(
+     *     path="/api/restaurants/update/{id}",
+     *     operationId="updateRestaurant",
+     *     tags={"Restaurants"},
+     *     summary="Update specific Restaurant",
+     *     description="Returns Restaurant data",
+     *     @OA\Parameter(
+     *           name="id",
+     *           description="Restaurant's id",
+     *           required=true,
+     *           in="path"
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 example="Diverxo"
+     *             ),
+     *             @OA\Property(
+     *                 property="country",
+     *                 type="string",
+     *                 example="France"
+     *             ),
+     *             @OA\Property(
+     *                  property="latitude",
+     *                  type="number",
+     *                  format="float",
+     *                  example=50.59067
+     *             ),
+     *             @OA\Property(
+     *                  property="longitude",
+     *                  type="number",
+     *                  format="float",
+     *                  example=30.71773
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="id",
+     *                  type="integer",
+     *                  example=22
+     *              ),
+     *              @OA\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  example="Diverxo"
+     *              ),
+     *              @OA\Property(
+     *                  property="country",
+     *                  type="string",
+     *                  example="France"
+     *              ),
+     *              @OA\Property(
+     *                   property="latitude",
+     *                   type="number",
+     *                   format="float",
+     *                   example=50.59067
+     *              ),
+     *              @OA\Property(
+     *                   property="longitude",
+     *                   type="number",
+     *                   format="float",
+     *                   example=30.71773
+     *              ),
+     *              @OA\Property(
+     *                     property="updated_at",
+     *                     type="string",
+     *                     example="2024-08-21T13:40:26.000000Z"
+     *               ),
+     *               @OA\Property(
+     *                     property="created_at",
+     *                     type="string",
+     *                     example="2024-08-21T13:40:26.000000Z"
+     *               ),
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
+     * @param RestaurantCreateRequest $restaurantCreateRequest
      * @return JsonResponse
+     *
      */
     public function updateRestaurant(Restaurant $restaurant, RestaurantUpdateRequest $restaurantUpdateRequest): JsonResponse
     {
@@ -67,6 +487,32 @@ class RestaurantController extends Controller
     }
 
     /**
+     *  @OA\Delete(
+     *  path="/api/restaurants/delete/{id}",
+     *  operationId="deleteRestaurant",
+     *  tags={"Restaurants"},
+     *  summary="Delete the Restaurant",
+     *  description="Returns message about operation",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Restaurant's id",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Restaurant was removed"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
      * @param Restaurant $restaurant
      * @return JsonResponse
      */

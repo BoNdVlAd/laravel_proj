@@ -18,6 +18,39 @@ class MenuController extends Controller
     {}
 
     /**
+     *  @OA\Get(
+     *      path="/api/menu/restaurants/{id}",
+     *      summary="Get menu for specific restaurant",
+     *      tags={"Menu"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Restaurant's id",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *           response="200",
+     *           description="success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                      @OA\Items(ref="#/components/schemas/Dishes")
+     *               ),
+     *               ),
+     *           )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
      * @param Restaurant $restaurant
      * @return JsonResponse
      */
@@ -29,6 +62,52 @@ class MenuController extends Controller
     }
 
     /**
+     *  @OA\Post(
+     *      path="/api/menu/restaurant/{id}",
+     *      summary="Create menu for a specific restaurant",
+     *      tags={"Menu"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Restaurant's id",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="dishes",
+     *                  type="array",
+     *                  @OA\Items(type="integer"),
+     *                  example={1, 2}
+     *              ),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *           response="200",
+     *           description="success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                      @OA\Items(ref="#/components/schemas/Dishes")
+     *               ),
+     *           )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Invalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
+     *
+     *
      * @param Restaurant $restaurant
      * @param Request $menuCreateRequest
      * @return JsonResponse
@@ -40,10 +119,36 @@ class MenuController extends Controller
 
         $menu = $this->menuService->createMenu($restaurant, $content);
 
-        return new JsonResponse($menu, Response::HTTP_CREATED);
+        return new JsonResponse(['data' => $menu], Response::HTTP_CREATED);
     }
 
     /**
+     *  @OA\Delete(
+     *  path="/api/menu/delete/{id}",
+     *  operationId="deleteMenu",
+     *  tags={"Menu"},
+     *  summary="Delete the Menu",
+     *  description="Returns message about operation",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Menu's id",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Menu has been deleted"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Ivalid input"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *  )
+     *
      * @param Menu $menu
      * @return JsonResponse
      */
