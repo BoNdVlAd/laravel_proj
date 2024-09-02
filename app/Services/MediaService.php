@@ -18,15 +18,6 @@ class MediaService
     }
 
     /**
-     * @param $media
-     * @return Media|null
-     */
-    public function getMediaById($media): ?Media
-    {
-        return $media;
-    }
-
-    /**
      * @param $model
      * @param $file
      * @return string
@@ -72,34 +63,13 @@ class MediaService
     }
 
     /**
+     * @param $model
      * @param $media
-     * @param $file
-     * @return Media|null
-     */
-    public function updateMedia($media, $file): ?Media
-    {
-        if ($file->file('file')->isValid()) {
-            $filePath = $file->file('file')->store('uploads', 'public');
-
-            $media->filename = $file->file('file')->getClientOriginalName();
-            $media->mime_type = $file->file('file')->getMimeType();
-            $media->size = $file->file('file')->getSize();
-            $media->url = Storage::url($filePath);
-
-            $media->save();
-
-            return $media;
-        }
-        abort(400, "Media upload failed");
-    }
-
-    /**
-     * @param $dish
      * @return string
      */
     public function deleteMedia($media): string
     {
         $media->delete();
-        return 'Dish was removed';
+        return 'Media was removed';
     }
 }

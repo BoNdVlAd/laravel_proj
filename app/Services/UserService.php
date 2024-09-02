@@ -14,17 +14,7 @@ class UserService
      */
     public function getAllUsers($queryParams): array
     {
-        $query = User::query();
-
-        if (isset($queryParams['name'])) {
-            $query->where('name', 'LIKE', "%{$queryParams['name']}%");
-        }
-
-        if (isset($queryParams['email'])) {
-            $query->where('email', 'LIKE', "%{$queryParams['email']}%");
-        }
-
-        $users = $query->get();
+        $users = User::query();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 
@@ -93,13 +83,13 @@ class UserService
     public function checkRole($user): string
     {
         if($user->hasRole('customer')){
-            return 'User role is customer';
+            return 'customer';
         } else if($user->hasRole('waiter')) {
-            return 'User role is waiter';
+            return 'waiter';
         } else if($user->hasRole('chef')) {
-            return 'User role is chef';
+            return 'chef';
         } else if($user->hasRole('manager')) {
-            return 'User role is manager';
+            return 'manager';
         } else {
             abort(403);
         }

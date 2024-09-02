@@ -75,38 +75,9 @@ class ProductController extends Controller
      *                  )
      *               ),
      *               @OA\Property(
-     *                  property="pagintaion",
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="total",
-     *                      type="integer",
-     *                      example=23
-     *                  ),
-     *                  @OA\Property(
-     *                       property="perPage",
-     *                       type="integer",
-     *                       example=10
-     *                  ),
-     *                  @OA\Property(
-     *                       property="currentPage",
-     *                       type="integer",
-     *                       example=1
-     *                  ),
-     *                  @OA\Property(
-     *                       property="lastPage",
-     *                       type="integer",
-     *                       example=3
-     *                   ),
-     *                   @OA\Property(
-     *                        property="from",
-     *                        type="integer",
-     *                        example=1
-     *                   ),
-     *                   @OA\Property(
-     *                        property="to",
-     *                        type="integer",
-     *                        example=10
-     *                   ),
+     *                   property="pagintaion",
+     *                   type="object",
+     *                   ref="#/components/schemas/Pagination"
      *               ),
      *           )
      *      ),

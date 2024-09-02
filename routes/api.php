@@ -64,13 +64,12 @@ Route::prefix('media')->group(function() {
     Route::get('/users/{model}', [UserController::class, 'getMedia']);
     Route::get('/dishes/{model}', [DishesController::class, 'getMedia']);
 
-    Route::get('/{media}', [MediaController::class, 'getMediaById']);
-
     Route::post('/users/{model}', [UserController::class, 'createMedia']);
     Route::post('/dishes/{model}', [DishesController::class, 'createMedia']);
 
-    Route::post('/update/{media}', [MediaController::class, 'updateMedia']);
     Route::delete('/delete/{media}', [MediaController::class, 'deleteMedia']);
+
+
 });
 
 /**
@@ -101,9 +100,11 @@ Route::prefix('restaurants')->group(function() {
  * Menu`s routes
  */
 Route::prefix('menu')->group(function() {
+    Route::get('', [MenuController::class, 'getAllMenu']);
+    Route::get('/{menu}', [MenuController::class, 'getMenu']);
+    Route::patch('/update/{menu}', [MenuController::class, 'updateMenu']);
     Route::prefix('/restaurant')->group(function() {
         Route::prefix('/{restaurant}')->group(function() {
-            Route::get('', [MenuController::class, 'getMenu']);
             Route::post('', [MenuController::class, 'createMenu']);
         });
     });

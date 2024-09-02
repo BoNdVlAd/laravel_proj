@@ -14,7 +14,7 @@ class OrderUpdateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            '*' =>[new PaymentCheckRule],
+//            '*' =>[new PaymentCheckRule],
             'payment_method' => 'max:255',
             'total_price' => 'integer',
         ];

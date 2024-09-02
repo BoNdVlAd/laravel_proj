@@ -14,21 +14,15 @@ class OrderService
      */
     public function getAllOrders($queryParams): array
     {
-        $query =  Order::query();
-
-        if (isset($queryParams['id'])) {
-            $query->where('id', 'LIKE', "%{$queryParams['id']}%");
-        }
-
-        if (isset($queryParams['payment_method'])) {
-            $query->where('payment_method', 'LIKE', "%{$queryParams['payment_method']}%");
-        }
-
-        $orders = $query->get();
+        $orders =  Order::query();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 
         $paginated = PagintaionHelper::paginate($orders, $showPerPage, $queryParams);
+
+        foreach ($paginated['data'] as $order) {
+            $order['dishes'] = $order->dishes;
+        }
 
         return $paginated;
     }
@@ -37,9 +31,14 @@ class OrderService
      * @param $order
      * @return Order|null
      */
-    public function getOrderById($order): ?Order
+    public function getOrderById($order): array
     {
-        return $order;
+
+        return [
+            "order"=> $order,
+            "dishes"=> $order->dishes
+        ];
+
     }
 
     /**
@@ -76,8 +75,11 @@ class OrderService
      * @param array $data
      * @return Order|null
      */
-    public function updateOrder($order, array $data): ?Order
+    public function updateOrder($order, $data): ?Order
     {
+        if ($order->status) {
+            abort(400, "Order was already processed");
+        }
         $order->payment_method = $data['payment_method'] ?? null;
         $order->total_price = $data['total_price'] ?? null;
         $order->user_id = auth()->id();
@@ -86,7 +88,13 @@ class OrderService
 
         $order->dishes()->detach();
 
-        $order->dishes()->attach($data['dishes']);
+        foreach ($data['dishes'] as $dishData) {
+            $dish = Dishes::find($dishData['id']);
+            for ($i = 0; $i < $dishData['qty']; $i++) {
+                $order->dishes()->attach($dish);
+            }
+        }
+
         $order->calculateTotalPrice();
 
         return $order;

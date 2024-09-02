@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Menu;
 use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Collection;
+use App\Helpers\PagintaionHelper;
 
 class MenuService
 {
@@ -14,10 +16,6 @@ class MenuService
      */
     public function createMenu(Restaurant $restaurant, array $data): Collection
     {
-        if ($restaurant->menu) {
-            $restaurant->menu->delete();
-        }
-
         $menu = $restaurant->menu()->createOrFirst(
             [
                 "restaurant_id"=>$restaurant->id,
@@ -27,6 +25,13 @@ class MenuService
         $menu->dishes()->sync($data['dishes']);
         return $menu->dishes;
     }
+
+    public function updateMenu($menu, array $data): Collection
+    {
+        $menu->dishes()->sync($data['dishes']);
+        return $menu->dishes;
+    }
+
 
     /**
      * @param $user
@@ -40,14 +45,29 @@ class MenuService
     }
 
     /**
-     * @param Restaurant $restaurant
+     * @param Menu $menu
      * @return Collection
      */
-    public function getMenu(Restaurant $restaurant): Collection
+    public function getMenu($menu): Collection
     {
-        if($restaurant->menu){
-            return $restaurant->menu->dishes;
+        if ($menu->dishes) {
+            return $menu->dishes;
         }
         abort(404,'This restaurant doesnt have menu');
+    }
+
+    /**
+     * @param $queryParams
+     * @return array
+     */
+    public function getAllMenu($queryParams): array
+    {
+        $menu =  Menu::query();
+
+        $showPerPage = $queryParams['perPage'] ?? 10;
+
+        $paginated = PagintaionHelper::paginate($menu, $showPerPage, $queryParams);
+
+        return $paginated;
     }
 }

@@ -79,29 +79,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 3
-                                        },
-                                        "name": {
-                                            "type": "string",
-                                            "example": "Tom"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "Tom@gmail.com"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-15T07:05:58.000000Z"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-15T07:05:58.000000Z"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -112,7 +90,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/auth/refresh": {
@@ -215,93 +198,11 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "Borsch"
-                                                    },
-                                                    "description": {
-                                                        "type": "string",
-                                                        "example": "Very tasty"
-                                                    },
-                                                    "price": {
-                                                        "type": "integer",
-                                                        "example": "Very tasty"
-                                                    },
-                                                    "recipe": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "properties": {
-                                                                "id": {
-                                                                    "type": "integer",
-                                                                    "example": 1
-                                                                },
-                                                                "qty": {
-                                                                    "type": "integer",
-                                                                    "example": 5
-                                                                }
-                                                            },
-                                                            "type": "object"
-                                                        },
-                                                        "example": [
-                                                            {
-                                                                "id": 1,
-                                                                "qty": 5
-                                                            },
-                                                            {
-                                                                "id": 2,
-                                                                "qty": 3
-                                                            }
-                                                        ]
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    },
-                                                    "order_id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    }
-                                                },
-                                                "type": "object"
+                                                "$ref": "#/components/schemas/Dishes"
                                             }
                                         },
                                         "pagintaion": {
-                                            "properties": {
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 23
-                                                },
-                                                "perPage": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "currentPage": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "lastPage": {
-                                                    "type": "integer",
-                                                    "example": 3
-                                                },
-                                                "from": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "to": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Pagination"
                                         }
                                     },
                                     "type": "object"
@@ -380,59 +281,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "title": {
-                                            "type": "string",
-                                            "example": "Dumpling Craft"
-                                        },
-                                        "description": {
-                                            "type": "string",
-                                            "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
-                                        },
-                                        "price": {
-                                            "type": "integer",
-                                            "example": 100
-                                        },
-                                        "recipe": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "qty": {
-                                                        "type": "integer",
-                                                        "example": 5
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "example": [
-                                                {
-                                                    "id": 1,
-                                                    "qty": 5
-                                                },
-                                                {
-                                                    "id": 2,
-                                                    "qty": 3
-                                                }
-                                            ]
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 22
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Dishes"
                                 }
                             }
                         }
@@ -468,64 +317,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "": {
-                                            "title": "title",
-                                            "type": "string",
-                                            "example": "Borsch"
-                                        },
-                                        "description": {
-                                            "type": "string",
-                                            "example": "Very tasty"
-                                        },
-                                        "price": {
-                                            "type": "string",
-                                            "example": "100"
-                                        },
-                                        "recipe": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "qty": {
-                                                        "type": "integer",
-                                                        "example": 5
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "example": [
-                                                {
-                                                    "id": 1,
-                                                    "qty": 5
-                                                },
-                                                {
-                                                    "id": 2,
-                                                    "qty": 3
-                                                }
-                                            ]
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-15T08:55:40.000000Z"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-15T08:55:40.000000Z"
-                                        },
-                                        "order_id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Dishes"
                                 }
                             }
                         }
@@ -611,63 +403,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "title": {
-                                            "type": "string",
-                                            "example": "Dumpling Craft"
-                                        },
-                                        "description": {
-                                            "type": "string",
-                                            "example": "Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
-                                        },
-                                        "price": {
-                                            "type": "integer",
-                                            "example": 100
-                                        },
-                                        "recipe": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "qty": {
-                                                        "type": "integer",
-                                                        "example": 5
-                                                    }
-                                                },
-                                                "type": "object"
-                                            },
-                                            "example": [
-                                                {
-                                                    "id": 1,
-                                                    "qty": 5
-                                                },
-                                                {
-                                                    "id": 2,
-                                                    "qty": 3
-                                                }
-                                            ]
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "order_id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Dishes"
                                 }
                             }
                         }
@@ -849,18 +585,47 @@
                 }
             }
         },
-        "/api/menu/restaurants/{id}": {
-            "get": {
+        "/api/media/delete/{id}": {
+            "delete": {
                 "tags": [
-                    "Menu"
+                    "Media"
                 ],
-                "summary": "Get menu for specific restaurant",
-                "operationId": "503f021e7af6ce33c7e428ec9442811a",
+                "summary": "Delete the Media",
+                "description": "Returns response",
+                "operationId": "deleteMedia",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Restaurant's id",
+                        "description": "Media's id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Media was removed"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/menu/{id}": {
+            "get": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Get specific menu",
+                "operationId": "b8000f34e9712f8620087e05b9c0a122",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Menu's id",
                         "required": true
                     }
                 ],
@@ -882,6 +647,149 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Update menu",
+                "operationId": "ecf49c8d2d3c47c17c47eff7a292f185",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Menu's id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "dishes": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Dishes"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/menu": {
+            "get": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Get all menu",
+                "operationId": "6be09e8a088cb0b946981ce8ef85235e",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Number of elements on page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Filter by id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": "18"
+                        }
+                    },
+                    {
+                        "name": "restaurant_id",
+                        "in": "query",
+                        "description": "Filter by restaurant_id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": "18"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Menu"
+                                            }
+                                        },
+                                        "pagintaion": {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 }
             }
@@ -1039,63 +947,11 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "status": {
-                                                        "type": "string",
-                                                        "example": "1"
-                                                    },
-                                                    "total_price": {
-                                                        "type": "string",
-                                                        "example": "700"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    },
-                                                    "user_id": {
-                                                        "type": "integer",
-                                                        "example": 3
-                                                    }
-                                                },
-                                                "type": "object"
+                                                "$ref": "#/components/schemas/Order"
                                             }
                                         },
                                         "pagintaion": {
-                                            "properties": {
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 23
-                                                },
-                                                "perPage": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "currentPage": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "lastPage": {
-                                                    "type": "integer",
-                                                    "example": 3
-                                                },
-                                                "from": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "to": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Pagination"
                                         }
                                     },
                                     "type": "object"
@@ -1109,7 +965,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -1189,7 +1050,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/orders/{id}": {
@@ -1329,7 +1195,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/orders/delete/{id}": {
@@ -1424,33 +1295,7 @@
                                             }
                                         },
                                         "pagintaion": {
-                                            "properties": {
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 23
-                                                },
-                                                "perPage": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "currentPage": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "lastPage": {
-                                                    "type": "integer",
-                                                    "example": 3
-                                                },
-                                                "from": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "to": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Pagination"
                                         }
                                     },
                                     "type": "object"
@@ -1816,69 +1661,11 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Asador Etxebarri"
-                                                    },
-                                                    "country": {
-                                                        "type": "string",
-                                                        "example": "France"
-                                                    },
-                                                    "latitude": {
-                                                        "type": "number",
-                                                        "format": "float",
-                                                        "example": 50.42297
-                                                    },
-                                                    "longitude": {
-                                                        "type": "number",
-                                                        "format": "float",
-                                                        "example": 30.24416
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "example": "2024-08-15T08:55:40.000000Z"
-                                                    }
-                                                },
-                                                "type": "object"
+                                                "$ref": "#/components/schemas/Restaurant"
                                             }
                                         },
                                         "pagintaion": {
-                                            "properties": {
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 23
-                                                },
-                                                "perPage": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "currentPage": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "lastPage": {
-                                                    "type": "integer",
-                                                    "example": 3
-                                                },
-                                                "from": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "to": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Pagination"
                                         }
                                     },
                                     "type": "object"
@@ -1937,39 +1724,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "name": {
-                                            "type": "string",
-                                            "example": "Diverxo"
-                                        },
-                                        "country": {
-                                            "type": "string",
-                                            "example": "France"
-                                        },
-                                        "latitude": {
-                                            "type": "number",
-                                            "format": "float",
-                                            "example": 50.59067
-                                        },
-                                        "longitude": {
-                                            "type": "number",
-                                            "format": "float",
-                                            "example": 30.71773
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 22
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Restaurant"
                                 }
                             }
                         }
@@ -2021,41 +1776,7 @@
                                 "schema": {
                                     "properties": {
                                         "restaurant": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "Asador Etxebarri"
-                                                },
-                                                "country": {
-                                                    "type": "string",
-                                                    "example": "France"
-                                                },
-                                                "latitude": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 50.42297
-                                                },
-                                                "longitude": {
-                                                    "type": "number",
-                                                    "format": "float",
-                                                    "example": 30.24416
-                                                },
-                                                "created_at": {
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "example": "2024-08-16T08:30:15.000000Z"
-                                                },
-                                                "updated_at": {
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "example": "2024-08-16T08:30:15.000000Z"
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Restaurant"
                                         },
                                         "distance": {
                                             "type": "number",
@@ -2133,39 +1854,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 22
-                                        },
-                                        "name": {
-                                            "type": "string",
-                                            "example": "Diverxo"
-                                        },
-                                        "country": {
-                                            "type": "string",
-                                            "example": "France"
-                                        },
-                                        "latitude": {
-                                            "type": "number",
-                                            "format": "float",
-                                            "example": 50.59067
-                                        },
-                                        "longitude": {
-                                            "type": "number",
-                                            "format": "float",
-                                            "example": 30.71773
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "2024-08-21T13:40:26.000000Z"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/Restaurant"
                                 }
                             }
                         }
@@ -2327,33 +2016,7 @@
                                             }
                                         },
                                         "pagintaion": {
-                                            "properties": {
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 23
-                                                },
-                                                "perPage": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "currentPage": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "lastPage": {
-                                                    "type": "integer",
-                                                    "example": 3
-                                                },
-                                                "from": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "to": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Pagination"
                                         }
                                     },
                                     "type": "object"
@@ -2538,29 +2201,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "name": {
-                                            "type": "string",
-                                            "example": "Tom Cruise"
-                                        },
-                                        "email": {
-                                            "type": "string",
-                                            "example": "tom@gmail.com"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "example": "tom@2024-08-21T12:42:33.000000Z.com"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "example": "tom@2024-08-21T12:42:33.000000Z.com"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -2676,7 +2317,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/users/role_customer": {
@@ -2710,7 +2356,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/users/role_waiter": {
@@ -2744,7 +2395,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/users/role_chef": {
@@ -2778,7 +2434,12 @@
                     "500": {
                         "description": "Internal server error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/media/users/{id}": {
@@ -2973,6 +2634,28 @@
                 },
                 "type": "object"
             },
+            "Menu": {
+                "title": "Media",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 22
+                    },
+                    "restaurant_id": {
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-08-21T13:40:26.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-08-21T13:40:26.000000Z"
+                    }
+                },
+                "type": "object"
+            },
             "Order": {
                 "title": "Order",
                 "properties": {
@@ -3009,6 +2692,36 @@
                         "items": {
                             "$ref": "#/components/schemas/Dishes"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "Pagination": {
+                "title": "Pagination",
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "example": 23
+                    },
+                    "perPage": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "currentPage": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "lastPage": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "from": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "to": {
+                        "type": "integer",
+                        "example": 10
                     }
                 },
                 "type": "object"
@@ -3448,13 +3161,49 @@
                 },
                 "type": "object"
             },
+            "Error": {
+                "title": "Error",
+                "type": "object"
+            },
+            "Restaurant": {
+                "title": "Restaraunt",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Asador Etxebarri"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "France"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 50.42297
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 30.24416
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-08-15T08:55:40.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-08-15T08:55:40.000000Z"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "title": "User",
                 "properties": {
-                    "user_id": {
-                        "type": "integer",
-                        "example": 3
-                    },
                     "id": {
                         "type": "integer",
                         "example": 1
@@ -3486,6 +3235,14 @@
             "500": {
                 "description": "Internal server error"
             }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Enter JWT token. Example: 'Bearer {token}'",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
         }
     },
     "tags": [
@@ -3496,6 +3253,10 @@
         {
             "name": "Dishes",
             "description": "Dishes"
+        },
+        {
+            "name": "Media",
+            "description": "Media"
         },
         {
             "name": "Menu",

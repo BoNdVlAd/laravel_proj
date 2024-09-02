@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\UserRequests\UserCreateRequest;
 use App\Http\Requests\UserRequests\UserUpdateRequest;
+use App\Models\Media;
 use App\Models\User;
 use App\Services\MediaService;
 use App\Services\UserService;
@@ -82,36 +82,7 @@ class UserController extends Controller
      *               @OA\Property(
      *                  property="pagintaion",
      *                  type="object",
-     *                  @OA\Property(
-     *                      property="total",
-     *                      type="integer",
-     *                      example=23
-     *                  ),
-     *                  @OA\Property(
-     *                       property="perPage",
-     *                       type="integer",
-     *                       example=10
-     *                  ),
-     *                  @OA\Property(
-     *                       property="currentPage",
-     *                       type="integer",
-     *                       example=1
-     *                  ),
-     *                  @OA\Property(
-     *                       property="lastPage",
-     *                       type="integer",
-     *                       example=3
-     *                   ),
-     *                   @OA\Property(
-     *                        property="from",
-     *                        type="integer",
-     *                        example=1
-     *                   ),
-     *                   @OA\Property(
-     *                        property="to",
-     *                        type="integer",
-     *                        example=10
-     *                   ),
+     *                  ref="#/components/schemas/Pagination"
      *               ),
      *           )
      *      ),
@@ -314,32 +285,7 @@ class UserController extends Controller
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                   property="id",
-     *                   type="integer",
-     *                   example=1
-     *              ),
-     *              @OA\Property(
-     *                  property="name",
-     *                  type="string",
-     *                  example="Tom Cruise"
-     *              ),
-     *              @OA\Property(
-     *                  property="email",
-     *                  type="string",
-     *                  example="tom@gmail.com"
-     *              ),
-     *              @OA\Property(
-     *                  property="updated_at",
-     *                  type="string",
-     *                  example="tom@2024-08-21T12:42:33.000000Z.com"
-     *              ),
-     *              @OA\Property(
-     *                   property="created_at",
-     *                   type="string",
-     *                   example="tom@2024-08-21T12:42:33.000000Z.com"
-     *               ),
+     *              ref="#/components/schemas/User"
      *          )
      *      ),
      *     @OA\Response(
@@ -459,6 +405,7 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Edit user role to manager",
      *     description="Returns message with user new role",
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *            response=200,
      *            description="Successful operation",
@@ -496,6 +443,7 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Edit user role to customer",
      *     description="Returns message with user new role",
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *            response=200,
      *            description="Successful operation",
@@ -532,6 +480,7 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Edit user role to waiter",
      *     description="Returns message with user new role",
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *            response=200,
      *            description="Successful operation",
@@ -568,6 +517,7 @@ class UserController extends Controller
      *     tags={"Users"},
      *     summary="Edit user role to chef",
      *     description="Returns message with user new role",
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *            response=200,
      *            description="Successful operation",
@@ -690,6 +640,7 @@ class UserController extends Controller
 
         return new JsonResponse($allMedia, Response::HTTP_OK);
     }
+
 }
 
 
