@@ -15,17 +15,7 @@ class RestaurantService
      */
     public function getAllRestaurants($queryParams): array
     {
-        $query =  Restaurant::query();
-
-        if (isset($queryParams['name'])) {
-            $query->where('name', 'LIKE', "%{$queryParams['name']}%");
-        }
-
-        if (isset($queryParams['country'])) {
-            $query->where('country', 'LIKE', "%{$queryParams['country']}%");
-        }
-
-        $restaurants = $query->get();
+        $restaurants = Restaurant::query();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 

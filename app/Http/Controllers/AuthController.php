@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\JsonResponse;
 
@@ -10,8 +11,11 @@ class AuthController extends Controller
     /**
      * @param Guard $auth
      */
-    public function __construct(Guard $auth)
+    public function __construct(Guard $auth,
+        private UserService $userService
+    )
     {
+
         $this->auth = $auth;
     }
 
@@ -86,36 +90,13 @@ class AuthController extends Controller
      *      path="/api/auth/me",
      *      summary="me",
      *      tags={"Auth"},
+     *      security={{"bearerAuth": {}}},
      *      @OA\Response(
      *           response="200",
      *           description="success",
      *           @OA\JsonContent(
      *               type="object",
-     *               @OA\Property(
-     *                  property="id",
-     *                  type="integer",
-     *                  example=3
-     *               ),
-     *               @OA\Property(
-     *                     property="name",
-     *                     type="string",
-     *                     example="Tom"
-     *               ),
-     *               @OA\Property(
-     *                      property="email",
-     *                      type="string",
-     *                      example="Tom@gmail.com"
-     *               ),
-     *               @OA\Property(
-     *                       property="created_at",
-     *                       type="string",
-     *                       example="2024-08-15T07:05:58.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                       property="updated_at",
-     *                       type="string",
-     *                       example="2024-08-15T07:05:58.000000Z"
-     *               ),
+     *               ref="#/components/schemas/User"
      *           )
      *      ),
      *      @OA\Response(
@@ -132,7 +113,7 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
-        return new JsonResponse(auth()->user());
+        return new JsonResponse($this->userService->checkRole(auth()->user()));
     }
 
     /**

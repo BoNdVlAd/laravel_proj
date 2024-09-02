@@ -13,17 +13,7 @@ class DishesService
      */
     public function getAllDishes($queryParams): array
     {
-
-        $query = Dishes::query();
-
-        if (isset($queryParams['title'])) {
-            $query->where('title', 'LIKE', "%{$queryParams['title']}%");
-        }
-
-        if (isset($queryParams['description'])) {
-            $query->where('description', 'LIKE', "%{$queryParams['description']}%");
-        }
-        $dishes = $query->get();
+        $dishes = Dishes::query();
 
         $showPerPage = $queryParams['perPage'] ?? 10;
 
@@ -38,7 +28,7 @@ class DishesService
      */
     public function getDishesById($dishes): ?Dishes
     {
-        return $dishes;
+        return $dishes->load('menu');
     }
 
     /**
@@ -83,25 +73,5 @@ class DishesService
     {
         $dish->delete();
         return 'Dish was removed';
-    }
-
-    /**
-     * @param $data
-     * @param $order
-     * @return Dishes|string
-     */
-    public function addDishToOrder($data, $order): Dishes|string
-    {
-        if($order->status){
-            return 'Order was already processed';
-        }
-        $dish = new Dishes;
-        $dish->title = $data['title'] ?? null;
-        $dish->description = $data['description'] ?? null;
-        $dish->price = $data['price'] ?? null;
-        $order->dishes()->save($dish);
-        $order->calculateTotalPrice();
-
-        return $dish;
     }
 }

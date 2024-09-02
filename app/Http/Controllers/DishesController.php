@@ -76,94 +76,13 @@ class DishesController
      *                  type="array",
      *                  @OA\Items(
      *                      type="object",
-     *                      @OA\Property(
-     *                          property="id",
-     *                          type="integer",
-     *                          example=1
-     *                      ),
-     *                      @OA\Property(
-     *                          property="title",
-     *                          type="string",
-     *                          example="Borsch"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="description",
-     *                          type="string",
-     *                          example="Very tasty"
-     *                      ),
-     *                      @OA\Property(
-     *                         property="price",
-     *                         type="integer",
-     *                         example="Very tasty"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="recipe",
-     *                          type="array",
-     *                          @OA\Items(
-     *                              type="object",
-     *                              @OA\Property(
-     *                                  property="id",
-     *                                  type="integer",
-     *                                  example=1
-     *                              ),
-     *                              @OA\Property(
-     *                                  property="qty",
-     *                                  type="integer",
-     *                                  example=5
-     *                              )
-     *                          ),
-     *                          example={{"id": 1, "qty": 5}, {"id": 2, "qty": 3}}
-     *                      ),
-     *                      @OA\Property(
-     *                          property="created_at",
-     *                          type="string",
-     *                          example="2024-08-15T08:55:40.000000Z"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="updated_at",
-     *                          type="string",
-     *                          example="2024-08-15T08:55:40.000000Z"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="order_id",
-     *                          type="integer",
-     *                          example=1
-     *                      ),
+     *                      ref="#/components/schemas/Dishes"
      *                  )
      *               ),
      *               @OA\Property(
      *                  property="pagintaion",
      *                  type="object",
-     *                  @OA\Property(
-     *                      property="total",
-     *                      type="integer",
-     *                      example=23
-     *                  ),
-     *                  @OA\Property(
-     *                       property="perPage",
-     *                       type="integer",
-     *                       example=10
-     *                  ),
-     *                  @OA\Property(
-     *                       property="currentPage",
-     *                       type="integer",
-     *                       example=1
-     *                  ),
-     *                  @OA\Property(
-     *                       property="lastPage",
-     *                       type="integer",
-     *                       example=3
-     *                   ),
-     *                   @OA\Property(
-     *                        property="from",
-     *                        type="integer",
-     *                        example=1
-     *                   ),
-     *                   @OA\Property(
-     *                        property="to",
-     *                        type="integer",
-     *                        example=10
-     *                   ),
+     *                  ref="#/components/schemas/Pagination"
      *               ),
      *           )
      *      ),
@@ -206,59 +125,7 @@ class DishesController
      *           description="Successful operation",
      *           @OA\JsonContent(
      *               type="object",
-     *               @OA\Property(
-     *                  property="id",
-     *                  type="integer",
-     *                  example=1
-     *               ),
-     *               @OA\Property(
-     *                  title="title",
-     *                  type="string",
-     *                  example="Borsch"
-     *               ),
-     *               @OA\Property(
-     *                  property="description",
-     *                  type="string",
-     *                  example="Very tasty"
-     *               ),
-     *               @OA\Property(
-     *                  property="price",
-     *                  type="string",
-     *                  example="100"
-     *               ),
-     *               @OA\Property(
-     *                  property="recipe",
-     *                  type="array",
-     *                  @OA\Items(
-     *                      type="object",
-     *                      @OA\Property(
-     *                          property="id",
-     *                          type="integer",
-     *                          example=1
-     *                      ),
-     *                      @OA\Property(
-     *                          property="qty",
-     *                          type="integer",
-     *                          example=5
-     *                      )
-     *                  ),
-     *                  example={{"id": 1, "qty": 5}, {"id": 2, "qty": 3}}
-     *               ),
-     *               @OA\Property(
-     *                  property="created_at",
-     *                  type="string",
-     *                  example="2024-08-15T08:55:40.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                  property="updated_at",
-     *                  type="string",
-     *                  example="2024-08-15T08:55:40.000000Z"
-     *               ),
-     *               @OA\Property(
-     *                  property="order_id",
-     *                  type="integer",
-     *                  example=1
-     *               ),
+     *               ref="#/components/schemas/Dishes"
      *           )
      *       ),
      *       @OA\Response(
@@ -332,56 +199,10 @@ class DishesController
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="title",
-     *                  type="string",
-     *                  example="Dumpling Craft"
-     *              ),
-     *              @OA\Property(
-     *                  property="description",
-     *                  type="string",
-     *                  example="Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
-     *              ),
-     *              @OA\Property(
-     *                   property="price",
-     *                   type="integer",
-     *                   example=100
-     *              ),
-     *              @OA\Property(
-     *                    property="recipe",
-     *                    type="array",
-     *                    @OA\Items(
-     *                        type="object",
-     *                        @OA\Property(
-     *                            property="id",
-     *                            type="integer",
-     *                            example=1
-     *                        ),
-     *                        @OA\Property(
-     *                            property="qty",
-     *                            type="integer",
-     *                            example=5
-     *                        )
-     *                    ),
-     *                    example={{"id": 1, "qty": 5}, {"id": 2, "qty": 3}}
-     *              ),
-     *              @OA\Property(
-     *                    property="updated_at",
-     *                    type="string",
-     *                    example="2024-08-21T13:40:26.000000Z"
-     *              ),
-     *              @OA\Property(
-     *                    property="created_at",
-     *                    type="string",
-     *                    example="2024-08-21T13:40:26.000000Z"
-     *              ),
-     *              @OA\Property(
-     *                    property="id",
-     *                    type="integer",
-     *                    example=22
-     *              )
+     *                type="object",
+     *                ref="#/components/schemas/Dishes"
      *          )
+     *
      *      ),
      *     @OA\Response(
      *          response=400,
@@ -463,62 +284,9 @@ class DishesController
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                   property="id",
-     *                   type="integer",
-     *                   example=1
-     *               ),
-     *              @OA\Property(
-     *                  property="title",
-     *                  type="string",
-     *                  example="Dumpling Craft"
-     *              ),
-     *              @OA\Property(
-     *                  property="description",
-     *                  type="string",
-     *                  example="Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
-     *              ),
-     *              @OA\Property(
-     *                   property="price",
-     *                   type="integer",
-     *                   example=100
-     *              ),
-     *              @OA\Property(
-     *                    property="recipe",
-     *                    type="array",
-     *                    @OA\Items(
-     *                        type="object",
-     *                        @OA\Property(
-     *                            property="id",
-     *                            type="integer",
-     *                            example=1
-     *                        ),
-     *                        @OA\Property(
-     *                            property="qty",
-     *                            type="integer",
-     *                            example=5
-     *                        )
-     *                    ),
-     *                    example={{"id": 1, "qty": 5}, {"id": 2, "qty": 3}}
-     *              ),
-     *              @OA\Property(
-     *                     property="created_at",
-     *                     type="string",
-     *                     example="2024-08-21T13:40:26.000000Z"
-     *               ),
-     *              @OA\Property(
-     *                    property="updated_at",
-     *                    type="string",
-     *                    example="2024-08-21T13:40:26.000000Z"
-     *              ),
-     *
-     *              @OA\Property(
-     *                    property="order_id",
-     *                    type="integer",
-     *                    example=1
-     *              )
-     *          )
+     *                 type="object",
+     *                 ref="#/components/schemas/Dishes"
+     *           )
      *      ),
      *     @OA\Response(
      *          response=400,
@@ -580,66 +348,6 @@ class DishesController
         $response = $this->dishesService->deleteDishes($dish);
 
         return new JsonResponse(['message' => $response], Response::HTTP_OK);
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/api/dishes/addDishToOrder/{id}",
-     *     operationId="addDishToOrder",
-     *     tags={"Dishes"},
-     *     summary="add dishes to order",
-     *     description="Returns dishes data",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(
-     *                 property="title",
-     *                 type="string",
-     *                 example="Dumpling Craft"
-     *             ),
-     *             @OA\Property(
-     *                 property="description",
-     *                 type="string",
-     *                 example="Dumplings are a broad class of dishes that consist of pieces of dough wrapped around a filling, or of dough with no filling."
-     *             ),
-     *             @OA\Property(
-     *                 property="price",
-     *                 type="integer",
-     *                 example=100
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(
-     *              ref="#/components/schemas/Dishes"
-     *          )
-     *      ),
-     *     @OA\Response(
-     *          response=400,
-     *          description="Invalid input"
-     *      ),
-     *      @OA\Response(
-     *          response=500,
-     *          description="Internal server error"
-     *      )
-     *  )
-     *
-     *  @param DishesCreateRequest $dishesCreateRequest
-     *  @param Order $order
-     *  @return JsonResponse
-     *
-     */
-    public function addDishToOrder(DishesCreateRequest $dishesCreateRequest, Order $order): JsonResponse
-    {
-        $data = $dishesCreateRequest->getContent();
-        $content = json_decode($data, true);
-
-        $dish = $this->dishesService->addDishToOrder($content, $order);
-
-        return new JsonResponse($dish, Response::HTTP_OK);
     }
 
     /**

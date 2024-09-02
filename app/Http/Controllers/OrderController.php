@@ -23,6 +23,7 @@ class OrderController extends Controller
      *      path="/api/orders",
      *      summary="Get a list of orders",
      *      tags={"Orders"},
+     *      security={{"bearerAuth": {}}},
      *      @OA\Parameter(
      *          name="page",
      *          in="query",
@@ -73,72 +74,14 @@ class OrderController extends Controller
      *                  type="array",
      *                  @OA\Items(
      *                      type="object",
-     *                      @OA\Property(
-     *                          property="id",
-     *                          type="integer",
-     *                          example=1
-     *                      ),
-     *                      @OA\Property(
-     *                          property="status",
-     *                          type="string",
-     *                          example="1"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="total_price",
-     *                          type="string",
-     *                          example="700"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="created_at",
-     *                          type="string",
-     *                          example="2024-08-15T08:55:40.000000Z"
-     *                      ),
-     *                      @OA\Property(
-     *                          property="updated_at",
-     *                          type="string",
-     *                          example="2024-08-15T08:55:40.000000Z"
-     *                      ),
-     *                      @OA\Property(
-     *                           property="user_id",
-     *                           type="integer",
-     *                           example=3
-     *                       ),
+     *                      ref="#/components/schemas/Order"
      *                  )
      *               ),
      *               @OA\Property(
-     *                  property="pagintaion",
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="total",
-     *                      type="integer",
-     *                      example=23
-     *                  ),
-     *                  @OA\Property(
-     *                       property="perPage",
-     *                       type="integer",
-     *                       example=10
-     *                  ),
-     *                  @OA\Property(
-     *                       property="currentPage",
-     *                       type="integer",
-     *                       example=1
-     *                  ),
-     *                  @OA\Property(
-     *                       property="lastPage",
-     *                       type="integer",
-     *                       example=3
-     *                   ),
-     *                   @OA\Property(
-     *                        property="from",
-     *                        type="integer",
-     *                        example=1
-     *                   ),
-     *                   @OA\Property(
-     *                        property="to",
-     *                        type="integer",
-     *                        example=10
-     *                   ),
-     *               ),
+     *                    property="pagintaion",
+     *                    type="object",
+     *                    ref="#/components/schemas/Pagination"
+     *                ),
      *           )
      *      ),
      *      @OA\Response(
@@ -240,6 +183,7 @@ class OrderController extends Controller
      *     tags={"Orders"},
      *     summary="Create new Order",
      *     description="Returns Order data",
+     *     security={{"bearerAuth": {}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -330,6 +274,7 @@ class OrderController extends Controller
      *     tags={"Orders"},
      *     summary="update order by id",
      *     description="Returns Order data",
+     *     security={{"bearerAuth": {}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -396,10 +341,9 @@ class OrderController extends Controller
         $data = $orderUpdateRequest->getContent();
         $content = json_decode($data, true);
 
-        $order = $this->orderService->updateOrder($order, $content);
+        $response = $this->orderService->updateOrder($order, $content);
 
-        return new JsonResponse($order, Response::HTTP_OK);
-
+        return new JsonResponse($response, Response::HTTP_OK);
     }
 
 

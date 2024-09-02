@@ -75,11 +75,6 @@ class LogRequestsResponses
             $logLevel = 'warning';
         }
 
-        if ($response->getStatusCode() !== 500) {
-            $data['response'] = $contents['message'] ?? $contents;
-            $logLevel = 'error';
-        }
-
         $userId = $request->user() ? $request->user()->id : 'guest';
         $logDirectory = storage_path("logs/{$dt->year}/{$dt->month}/{$dt->day}/user_{$userId}");
 
