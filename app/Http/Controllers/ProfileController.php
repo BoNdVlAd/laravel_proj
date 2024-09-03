@@ -59,7 +59,7 @@ class ProfileController extends Controller
         $data = $userChangePasswordRequest->getContent();
         $content = json_decode($data, true);
 
-        return new JsonResponse(['message' => $this->profileService->changePassword($content)], 400);
+        return new JsonResponse(['message' => $this->profileService->changePassword($content)], 200);
     }
 
     /**

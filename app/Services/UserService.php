@@ -50,15 +50,14 @@ class UserService
     }
 
     /**
-     * @param $user
      * @param array $data
      * @return User|null
      */
-    public function updateUser($user, array $data): ?User
+    public function updateUser(array $data): ?User
     {
+        $user = auth()->user();
         $user->name = $data['name'] ?? $user->name;
         $user->email = $data['email'] ?? $user->email;
-        $user->password = $data['password'] ?? $user->password;
 
         $user->save();
 
@@ -74,6 +73,11 @@ class UserService
         $user->delete();
 
         return 'User has been deleted';
+    }
+
+    public function getMe()
+    {
+        return auth()->user();
     }
 
     /**

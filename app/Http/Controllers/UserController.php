@@ -298,17 +298,16 @@ class UserController extends Controller
      *      )
      *  )
      *
-     * @param User $user
      * @param UserUpdateRequest $userUpdateRequest
      * @return JsonResponse
      */
 
-    public function updateUser(User $user, UserUpdateRequest $userUpdateRequest): JsonResponse
+    public function updateUser(UserUpdateRequest $userUpdateRequest): JsonResponse
     {
         $data = $userUpdateRequest->getContent();
         $content = json_decode($data, true);
 
-        $user = $this->userService->updateUser($user, $content);
+        $user = $this->userService->updateUser($content);
 
         return new JsonResponse($user, Response::HTTP_OK);
     }
