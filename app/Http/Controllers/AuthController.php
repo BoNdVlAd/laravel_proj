@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\JsonResponse;
+use PragmaRX\Google2FA\Google2FA;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -76,6 +78,8 @@ class AuthController extends Controller
      */
     public function login(): JsonResponse
     {
+        $google2fa = new Google2FA();
+
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
@@ -85,10 +89,21 @@ class AuthController extends Controller
         $user = auth()->user();
 
         if ($user->google2fa_secret) {
-            return response()->json(['message' => '2FA required'], 200);
-        }
+            if (request('code')) {
+                if ($google2fa->verifyKey($user->google2fa_secret, request('code'))) {
+                    return $this->respondWithToken($token);
+                }
+            } else {
+                return new JsonResponse([
+                    'two_step_auth' => true,
+                ], 300);
+            }
 
+        }
         return $this->respondWithToken($token);
+
+
+
     }
 
     /**

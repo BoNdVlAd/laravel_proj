@@ -140,6 +140,10 @@ Route::post('/payment/{order}', [StripePaymentController::class, 'stripePost']);
 Route::post('/reset/password/email', [ProfileController::class, 'sendResetLinkEmail']);
 Route::post('/reset/password', [ProfileController::class, 'resetPassword']);
 
+
+/**
+ * 2fa
+ */
 Route::get('/generate-2fa-secret', [TwoFactorAuth::class, 'generate2FASecret']);
 Route::post('/verify-2fa-code', [TwoFactorAuth::class, 'verify2FACode']);
 Route::delete('/delete-2fa-code', [TwoFactorAuth::class, 'delete2FACode']);

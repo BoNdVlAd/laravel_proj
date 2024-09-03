@@ -25,22 +25,19 @@ class TwoFactorAuth extends Controller
         return response()->json(['qr_code_url' => $qrCodeUrl]);
     }
 
-    public function verify2FACode(Request $request)
+    public function verify2FACode(Request $request): JsonResponse
     {
-
-
         $google2fa = new Google2FA();
         $user = auth()->user();
 
-
         if ($google2fa->verifyKey($user->google2fa_secret, $request->input('code'))) {
-            $token = auth()->tokenById($user->id);
 
-            return response()->json(['message' => 'Code verified'], 200);
+            return response()->json(['message' => 'ok'], 200);
         } else {
             return response()->json(['message' => 'Invalid code'], 400);
         }
     }
+
 
     public function delete2FACode(Request $request)
     {
