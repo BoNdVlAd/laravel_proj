@@ -10,10 +10,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, HasRolesAndPermissions, Billable;
+    use HasFactory, Notifiable, HasRolesAndPermissions, Billable, TwoFactorAuthenticatable;
 
     /**
      * @var string[]
@@ -22,6 +23,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'google2fa_secret'
     ];
 
     /**

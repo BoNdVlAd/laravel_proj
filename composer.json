@@ -9,6 +9,7 @@
         "darkaonline/l5-swagger": "^8.6",
         "elasticsearch/elasticsearch": "^8.15",
         "laravel/cashier": "^15.4",
+        "laravel/fortify": "^1.24",
         "laravel/framework": "^11.9",
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",

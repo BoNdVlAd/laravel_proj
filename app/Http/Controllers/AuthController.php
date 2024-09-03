@@ -82,6 +82,12 @@ class AuthController extends Controller
             return new JsonResponse(['error' => 'Unauthorized'], 401);
         }
 
+        $user = auth()->user();
+
+        if ($user->google2fa_secret) {
+            return response()->json(['message' => '2FA required'], 200);
+        }
+
         return $this->respondWithToken($token);
     }
 
@@ -112,6 +118,14 @@ class AuthController extends Controller
      * @return JsonResponse
      */
     public function me(): JsonResponse
+    {
+        return new JsonResponse($this->userService->getMe());
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function checkRole(): JsonResponse
     {
         return new JsonResponse($this->userService->checkRole(auth()->user()));
     }

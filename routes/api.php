@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Middleware\ManagerRoleMiddleware;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TwoFactorAuth;
 
 /**
  * User`s routes
@@ -22,7 +23,7 @@ Route::prefix('users')->group(function() {
     Route::get('', [UserController::class, 'getUsers']);
     Route::get('/{user}', [UserController::class, 'getUser']);
     Route::post('', [UserController::class, 'createUser']);
-    Route::patch('/update/{user}', [UserController::class, 'updateUser']);
+    Route::patch('/update', [UserController::class, 'updateUser']);
     Route::delete('/delete/{user}', [UserController::class, 'deleteUser']);
 
     Route::get('/check_role/{user}', [UserController::class, 'checkRole']);
@@ -122,6 +123,7 @@ Route::get('/test', TestController::class);
 Route::prefix('auth')->middleware('api')->controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::get('me', 'me')->middleware(UserRoleMiddleware::class);
+    Route::get('check_role', 'checkRole');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
     Route::patch('/change_password', [ProfileController::class, 'changePassword'])->middleware(UserRoleMiddleware::class);
@@ -138,3 +140,6 @@ Route::post('/payment/{order}', [StripePaymentController::class, 'stripePost']);
 Route::post('/reset/password/email', [ProfileController::class, 'sendResetLinkEmail']);
 Route::post('/reset/password', [ProfileController::class, 'resetPassword']);
 
+Route::get('/generate-2fa-secret', [TwoFactorAuth::class, 'generate2FASecret']);
+Route::post('/verify-2fa-code', [TwoFactorAuth::class, 'verify2FACode']);
+Route::delete('/delete-2fa-code', [TwoFactorAuth::class, 'delete2FACode']);
