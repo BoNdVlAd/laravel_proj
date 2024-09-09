@@ -1,16 +1,20 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Browser;
 
-use PHPUnit\Framework\TestCase;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ExampleTest extends TestCase
+class ExampleTest extends DuskTestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_that_true_is_true(): void
+    /** @test */
+    public function it_can_visit_the_homepage()
     {
-        $this->assertTrue(true);
+        $this->browse(function (Browser $browser) {
+            $browser->visit('http://localhost:3000') // URL вашего React приложения
+            ->assertSee('Welcome') // Здесь можно проверять содержимое страницы
+            ->screenshot('homepage'); // Можно сохранять скриншоты для отладки
+        });
     }
 }
