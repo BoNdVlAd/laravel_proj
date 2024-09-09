@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Scrapper\Selenium_scrapper;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class RunScrapper extends Command
 {
@@ -24,7 +25,7 @@ class RunScrapper extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
 
         $scrapper = new Selenium_scrapper();
@@ -32,6 +33,6 @@ class RunScrapper extends Command
 
         $this->info('Selenium scrapper executed successfully!');
 
-        return Command::SUCCESS;
+        return CommandAlias::SUCCESS;
     }
 }
